@@ -39,9 +39,13 @@
                 </a>
             @endif
 
-            <x-primary-button class="ms-3">
+            <x-primary-button class="ms-3 hover:bg-white hover:text-black">
                 {{ __('Log in') }}
             </x-primary-button>
+
+            <x-secondary-button class="ms-3 hover:bg-black hover:text-white">
+                {{ __('Register') }}
+            </x-secondary-button>
         </div>
     </form>
 </x-guest-layout>
