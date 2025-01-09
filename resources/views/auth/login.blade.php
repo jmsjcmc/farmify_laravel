@@ -40,18 +40,17 @@
         </div>
 
         <div class="flex items-center justify-between mt-4">
+            <button class="group px-6 py-1 rounded-lg bg-neutral-50 border text-green-500 hover:bg-green-500">
+                <a href="{{ route('login')}}">
+                    <span class="group-hover:text-white text-sm transition-all duration-300 uppercase font-semibold">Login</span>
+                </a>
+            </button>
 
-
-
-            <x-primary-button class="ms-3 hover:bg-white hover:text-black">
-                {{ __('Log in') }}
-            </x-primary-button>
-
-            <a href="{{ route('register') }}">
-                <x-secondary-button class="ms-3 hover:bg-black hover:text-green-500">
-                    {{ __('Register') }}
-                </x-secondary-button>
-            </a>
+            <button class="group px-6 py-1 rounded-lg bg-green-500 border text-white hover:bg-neutral-50 hover:text-green-500">
+                <a href="{{ route('register') }}">
+                    <span class="group-hover:text-green-500 text-sm transition-all duration-300 uppercase font-semibold">Register</span>
+                </a>
+            </button>
         </div>
     </form>
 </x-guest-layout>
