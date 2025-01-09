@@ -43,9 +43,11 @@
                 {{ __('Log in') }}
             </x-primary-button>
 
-            <x-secondary-button class="ms-3 hover:bg-black hover:text-white">
-                {{ __('Register') }}
-            </x-secondary-button>
+            <a href="{{ route('register') }}">
+                <x-secondary-button class="ms-3 hover:bg-black hover:text-white">
+                    {{ __('Register') }}
+                </x-secondary-button>
+            </a>
         </div>
     </form>
 </x-guest-layout>
