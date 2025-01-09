@@ -6,5 +6,8 @@ use Illuminate\Http\Request;
 
 class ConsumerController extends Controller
 {
-    //
+    public function viewDashboard()
+    {
+        return view('consumer.consumer-dashboard');
+    }
 }

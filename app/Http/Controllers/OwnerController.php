@@ -6,5 +6,8 @@ use Illuminate\Http\Request;
 
 class OwnerController extends Controller
 {
-    //
+    public function viewDashboard()
+    {
+        return view('owner.owner-dashboard');
+    }
 }

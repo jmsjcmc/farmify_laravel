@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
+
 class AuthenticatedSessionController extends Controller
 {
     /**
@@ -28,7 +29,22 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        $user = Auth::user();
+
+        if ($user->hasRole('Admin')) {
+            return redirect()->route('admin.dashboard');
+        } elseif ($user->hasRole('Consumer')) {
+            return redirect()->route('consumer.dashboard');
+        } elseif ($user->hasRole('Farm Owner')) {
+            return redirect()->route('owner.dashboard');
+        } elseif ($user->hasRole('Farm Laborer')) {
+            return redirect()->route('laborer.dashboard');
+        } elseif ($user->hasRole('Farm Manager')) {
+            return redirect()->route('manager.dashboard');
+        }
+
+
+        return redirect()->route('login');
     }
 
     /**
