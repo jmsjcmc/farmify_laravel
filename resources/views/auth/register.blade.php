@@ -37,7 +37,15 @@
             <div class="flex flex-col">
                 <span class="mb-1 text-sm">Password</span>
                 <div class="flex flex-col flex-grow">
-                    <input type="password" name="password" class="rounded-md text-sm">
+                    <input id="password" type="password" name="password" class="rounded-md text-sm" onkeyup="passwordMatch()">
+                </div>
+            </div>
+
+            <div class="flex flex-col">
+                <span class="mb-1 text-sm">Confirm Password</span>
+                <div class="flex flex-col flex-grow">
+                    <input id="password_confirmation" type="password" name="password_confirmation" class="rounded-md text-sm" onkeyup="passwordMatch()">
+                    <span id="password-message" class="text-sm"></span>
                 </div>
             </div>
 
@@ -52,11 +60,12 @@
                 </a>
             </button>
 
-            <button class="group px-6 py-1 rounded-lg bg-green-500 border text-white hover:bg-neutral-50 hover:text-green-500">
-                <a href="{{ route('register') }}">
+            <button type="submit"
+                class="group px-6 py-1 rounded-lg bg-green-500 border text-white hover:bg-neutral-50 hover:text-green-500">
                     <span class="group-hover:text-green-500 text-sm transition-all duration-300 uppercase font-semibold">Register</span>
-                </a>
             </button>
         </div>
     </form>
+
+   @vite(['resources/js/registration.js'])
 </x-guest-layout>
