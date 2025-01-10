@@ -25,26 +25,30 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-        $request->authenticate();
+        $credentials = $request->only('login', 'password');
+        $fieldType = filter_var($credentials['login'], FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
 
-        $request->session()->regenerate();
+        if (Auth::attempt([$fieldType => $credentials['login'], 'password' => $credentials['password']])) {
+            $request->session()->regenerate();
 
-        $user = Auth::user();
+            $user = Auth::user();
 
-        if ($user->hasRole('Admin')) {
-            return redirect()->route('admin.dashboard');
-        } elseif ($user->hasRole('Consumer')) {
-            return redirect()->route('consumer.dashboard');
-        } elseif ($user->hasRole('Farm Owner')) {
-            return redirect()->route('owner.dashboard');
-        } elseif ($user->hasRole('Farm Laborer')) {
-            return redirect()->route('laborer.dashboard');
-        } elseif ($user->hasRole('Farm Manager')) {
-            return redirect()->route('manager.dashboard');
+            if ($user->hasRole('Admin')) {
+                return redirect()->route('admin.dashboard');
+            } elseif ($user->hasRole('Consumer')) {
+                return redirect()->route('consumer.dashboard');
+            } elseif ($user->hasRole('Farm Owner')) {
+                return redirect()->route('owner.dashboard');
+            } elseif ($user->hasRole('Farm Laborer')) {
+                return redirect()->route('laborer.dashboard');
+            } elseif ($user->hasRole('Farm Manager')) {
+                return redirect()->route('manager.dashboard');
+            }
         }
 
-
-        return redirect()->route('login');
+        return back()->withErrors([
+            'login' => 'The provided credentials do not match our records.',
+        ])->onlyInput('login');
     }
 
     /**
