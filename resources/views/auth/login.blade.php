@@ -6,13 +6,22 @@
         @csrf
 
         <!-- Email Address -->
-        <div>
+        {{-- <div>
             <x-input-label for="email" :value="__('Email')" />
             <x-text-input id="email" class="block mt-1 w-full text-sm" type="email" name="email" :value="old('email')" required
                 autofocus autocomplete="username" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
+        </div> --}}
 
+        <div>
+            <x-input-label for="login" :value="__('Email or Username')" />
+            <x-text-input id="login" class="block mt-1 w-full text-sm"
+                type="text"
+                name="login"
+                :value="old('login')"
+                required autofocus />
+            <x-input-error :messages="$errors->get('login')" class="mt-2" />
+        </div>
         <!-- Password -->
         <div class="mt-4">
             <x-input-label for="password" :value="__('Password')" />
