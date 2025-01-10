@@ -54,10 +54,8 @@
         </div>
 
         <div class="flex items-center justify-between mt-4">
-            <button class="group px-6 py-1 rounded-lg bg-neutral-50 border text-green-500 hover:bg-green-500">
-                <a href="{{ route('login')}}">
+            <button type="submit" class="group px-6 py-1 rounded-lg bg-neutral-50 border text-green-500 hover:bg-green-500">
                     <span class="group-hover:text-white text-sm transition-all duration-300 uppercase font-semibold">Login</span>
-                </a>
             </button>
 
             <button class="group px-6 py-1 rounded-lg bg-green-500 border text-white hover:bg-neutral-50 hover:text-green-500">
