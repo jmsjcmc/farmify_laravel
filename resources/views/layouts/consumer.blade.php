@@ -49,6 +49,10 @@
                                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Dashboard</a>
                             </li>
                             <li>
+                                <a href=""
+                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Account</a>
+                            </li>
+                            <li>
                                 <a href="#"
                                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Settings</a>
                             </li>
@@ -56,14 +60,16 @@
                                 <a href="#"
                                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Earnings</a>
                             </li>
-                            <li>
-                                <form method="POST" action="{{ route('logout')}}">
-                                    @csrf
-                                    <button type="submit" >
-                                        <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign Out</a></button>
-                                </form>
-
-                            </li>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <li>
+                                    <button type="submit">
+                                        <a
+                                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign
+                                            Out</a>
+                                    </button>
+                                </li>
+                            </form>
                         </ul>
                     </div>
                     <button data-collapse-toggle="navbar-user" type="button"
