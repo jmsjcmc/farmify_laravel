@@ -124,6 +124,7 @@
                   <div>
                     <span class="mb-2 inline-block rounded bg-primary-100 px-2.5 py-0.5 text-xs font-medium text-primary-800 dark:bg-primary-900 dark:text-primary-300"> PRO Account </span>
                     <h2 class="flex items-center text-xl font-bold leading-none text-gray-900 dark:text-white sm:text-2xl">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</h2>
+                    <button class="flex items-center rounded-lg bg-green-500 border px-3 py-1 text-white hover:bg-neutral-50 hover:text-green-500" > <a href="{{ route('consumer.setting')}}"><span class="text-sm font-bold">Edit Profile</span></a></button>
                   </div>
                 </div>
                 <dl class="">
