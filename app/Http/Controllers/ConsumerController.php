@@ -10,4 +10,9 @@ class ConsumerController extends Controller
     {
         return view('consumer.consumer-dashboard');
     }
+
+    public function viewSetting()
+    {
+        return view('consumer.consumer-setting.consumer-setting');
+    }
 }
