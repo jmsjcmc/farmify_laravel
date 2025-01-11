@@ -128,7 +128,7 @@
                 </div>
                 <dl class="">
                   <dt class="font-semibold text-gray-900 dark:text-white">Email Address</dt>
-                  <dd class="text-gray-500 dark:text-gray-400">helene@example.com</dd>
+                  <dd class="text-gray-500 dark:text-gray-400">{{ Auth::user()->email }}</dd>
                 </dl>
                 <dl>
                   <dt class="font-semibold text-gray-900 dark:text-white">Home Address</dt>
