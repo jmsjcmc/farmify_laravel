@@ -26,6 +26,7 @@ Route::middleware('auth')->group(function () {
 Route::group(['middleware' => ['role:Consumer']], function () {
     Route::get('/consumer-dashboard', [ConsumerController::class, 'viewDashboard'])->name('consumer.dashboard');
     Route::get('/consumer-setting', [ConsumerController::class, 'viewSetting'])->name('consumer.setting');
+    Route::get('/consumer-account', [ConsumerController::class, 'viewAccount'])->name('consumer.account');
 });
 
 Route::group(['middleware' => ['role:Admin']], function () {

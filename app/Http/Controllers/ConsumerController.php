@@ -15,4 +15,9 @@ class ConsumerController extends Controller
     {
         return view('consumer.consumer-setting.consumer-setting');
     }
+
+    public function viewAccount()
+    {
+        return view('consumer.consumer-setting.consumer-account');
+    }
 }
