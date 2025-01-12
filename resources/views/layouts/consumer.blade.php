@@ -71,7 +71,7 @@
                                 </a>
                             </li>
                             <li class="shrink-0">
-                                <a href="#" title=""
+                                <a href="{{ route('consumer.register-farm-owner') }}" title=""
                                     class="flex text-sm font-medium text-gray-900 hover:text-primary-700 dark:text-white dark:hover:text-primary-500">
                                     Are you a Farm Owner?
                                 </a>

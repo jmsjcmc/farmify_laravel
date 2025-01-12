@@ -1,7 +1,7 @@
 <x-consumer-layout>
     <section class="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
         <form action="#" class="mx-auto max-w-screen-xl px-4 2xl:px-0">
-            <ol
+            {{-- <ol
                 class="items-center flex w-full max-w-2xl text-center text-sm font-medium text-gray-500 dark:text-gray-400 sm:text-base">
                 <li
                     class="after:border-1 flex items-center text-primary-700 after:mx-6 after:hidden after:h-1 after:w-full after:border-b after:border-gray-200 dark:text-primary-500 dark:after:border-gray-700 sm:after:inline-block sm:after:content-[''] md:w-full xl:after:mx-10">
@@ -37,12 +37,12 @@
                     </svg>
                     Order summary
                 </li>
-            </ol>
+            </ol> --}}
 
             <div class="mt-6 sm:mt-8 lg:flex lg:items-start lg:gap-12 xl:gap-16">
                 <div class="min-w-0 flex-1 space-y-8">
                     <div class="space-y-4">
-                        <h2 class="text-xl font-semibold text-gray-900 dark:text-white">Delivery Details</h2>
+                        <h2 class="text-xl font-semibold text-gray-900 dark:text-white">User Details</h2>
 
                         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                             <div>

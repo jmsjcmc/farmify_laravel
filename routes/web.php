@@ -27,6 +27,7 @@ Route::group(['middleware' => ['role:Consumer']], function () {
     Route::get('/consumer-dashboard', [ConsumerController::class, 'viewDashboard'])->name('consumer.dashboard');
     Route::get('/consumer-setting', [ConsumerController::class, 'viewSetting'])->name('consumer.setting');
     Route::get('/consumer-account', [ConsumerController::class, 'viewAccount'])->name('consumer.account');
+    Route::get('/consumer-register-farm-owner', [ConsumerController::class, 'viewRegisterFarmOwner'])->name('consumer.register-farm-owner');
 });
 
 Route::group(['middleware' => ['role:Admin']], function () {

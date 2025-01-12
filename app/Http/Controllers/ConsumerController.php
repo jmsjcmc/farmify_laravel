@@ -20,4 +20,9 @@ class ConsumerController extends Controller
     {
         return view('consumer.consumer-setting.consumer-account');
     }
+
+    public function viewRegisterFarmOwner()
+    {
+        return view('consumer.consumer-setting.register-farm-owner');
+    }
 }
