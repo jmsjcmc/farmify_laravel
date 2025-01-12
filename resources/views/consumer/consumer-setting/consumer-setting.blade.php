@@ -651,8 +651,7 @@
 
                     <div class="space-y-3">
                         <button type="submit"
-                            class="flex w-full items-center justify-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4  focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Proceed
-                            to Payment</button>
+                            class="flex w-full items-center justify-center rounded-lg bg-green-500 px-5 py-2.5 hover:bg-neutral-50 focus:outline-none focus:ring-4 focus:ring-primary-300 group border"><span class="text-white font-bold group-hover:text-green-500">Save</span></button>
 
                         <p class="text-sm font-normal text-gray-500 dark:text-gray-400">One or more items in your cart
                             require an account. <a href="#" title=""
