@@ -8,13 +8,13 @@ class AdminController extends Controller
 {
     public function viewDashboard()
     {
-        $users = User::with('roles')->paginate(10);
-        return view('admin.admin-dashboard', compact('users'));
+        return view('admin.admin-dashboard');
     }
 
     public function viewUserManagement()
     {
-        return view('admin.user-management.user-management');
+        $users = User::with('roles')->paginate(10);
+        return view('admin.user-management.user-management', compact('users'));
     }
 
     public function addUser(Request $request)
