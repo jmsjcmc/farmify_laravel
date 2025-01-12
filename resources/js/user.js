@@ -3,26 +3,42 @@ document.addEventListener('DOMContentLoaded', function() {
     const userForm = document.getElementById('userForm');
     const modalTitle = document.getElementById('modalTitle');
 
+
+    function removeMethodInput() {
+        const existingMethodInput = userForm.querySelector('input[name="_method"]');
+        if (existingMethodInput) {
+            existingMethodInput.remove();
+        }
+    }
+
     document.querySelectorAll('[data-modal-target="userModal"]').forEach(button => {
         button.addEventListener('click', function() {
             const action = this.dataset.modalAction;
             const userId = this.dataset.userId;
 
+
+            userForm.reset();
+            removeMethodInput();
+
             if (action === 'add') {
                 modalTitle.textContent = 'Add User';
-                userForm.action = "{{ route('admin.add-user') }}";
+                userForm.action = '/admin/users';
                 userForm.method = 'POST';
-                userForm.reset();
+                document.getElementById('password').required = true;
             } else {
                 modalTitle.textContent = 'Edit User';
                 userForm.action = `/admin/users/${userId}`;
                 userForm.method = 'POST';
+
 
                 const methodInput = document.createElement('input');
                 methodInput.type = 'hidden';
                 methodInput.name = '_method';
                 methodInput.value = 'PUT';
                 userForm.appendChild(methodInput);
+
+
+                document.getElementById('password').required = false;
 
 
                 fetch(`/admin/users/${userId}/edit`)

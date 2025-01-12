@@ -42,7 +42,7 @@ class AdminController extends Controller
         $user = User::create($validate);
         $user->assignRole($validate['role']);
 
-        return redirect()->back()->with('success', 'User added successfully');
+        return redirect()->route('admin.user-management')->with('success', 'User added successfully');
     }
 
     public function updateUser(Request $request, User $user)
@@ -52,14 +52,18 @@ class AdminController extends Controller
             'last_name' => 'required|string|max:255',
             'username' => 'required|string|unique:users|max:255',
             'email' => 'required|email|unique:users|max:255',
-            'password' => 'required|min:8',
+            'password' => 'nullable|min:8',
             'role' => 'required|exists:roles,name'
         ]);
+
+        if (empty($validate['password'])) {
+            unset($validate['password']);
+        }
 
         $user->update($validate);
         $user->syncRoles([$validate['role']]);
 
-        return redirect()->back()->with('success', 'User updated successfully');
+        return redirect()->route('admin.user-management')->with('success', 'User updated successfully');
     }
 
     public function deleteUser(User $user)
