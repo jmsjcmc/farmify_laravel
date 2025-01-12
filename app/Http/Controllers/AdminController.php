@@ -67,4 +67,9 @@ class AdminController extends Controller
         $user->delete();
         return redirect()->back()->with('success', 'User deleted successfully');
     }
+
+    public function editUser(User $user)
+    {
+        return response()->json($user->load('roles'));
+    }
 }
