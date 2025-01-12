@@ -32,6 +32,7 @@ Route::group(['middleware' => ['role:Consumer']], function () {
 
 Route::group(['middleware' => ['role:Admin']], function () {
     Route::get('/admin-dashboard', [AdminController::class, 'viewDashboard'])->name('admin.dashboard');
+    Route::get('/admin-user-management', [AdminController::class, 'viewUserManagement'])->name('admin.user-management');
 });
 
 Route::group(['middleware' => ['role:Owner']], function () {
