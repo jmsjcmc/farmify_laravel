@@ -33,6 +33,9 @@ Route::group(['middleware' => ['role:Consumer']], function () {
 Route::group(['middleware' => ['role:Admin']], function () {
     Route::get('/admin-dashboard', [AdminController::class, 'viewDashboard'])->name('admin.dashboard');
     Route::get('/admin-user-management', [AdminController::class, 'viewUserManagement'])->name('admin.user-management');
+    Route::post('/admin/users', [AdminController::class, 'addUser'])->name('admin.add-user');
+    Route::put('/admin/users/{user}', [AdminController::class, 'updateUser'])->name('admin.update-user');
+    Route::delete('/admin/users/{user}', [AdminController::class, 'deleteUser'])->name('admin.delete-user');
 });
 
 Route::group(['middleware' => ['role:Owner']], function () {
