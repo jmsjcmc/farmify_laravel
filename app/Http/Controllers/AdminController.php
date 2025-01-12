@@ -11,9 +11,20 @@ class AdminController extends Controller
         return view('admin.admin-dashboard');
     }
 
-    public function viewUserManagement()
+    public function viewUserManagement(Request $request)
     {
-        $users = User::with('roles')->paginate(10);
+        $search = $request->input('search');
+        $users = User::with('roles')
+        ->when($search, function ($query, $search) {
+            $query->where(function($q) use ($search) {
+                $q->where('first_name', 'like', "%{$search}%")
+                  ->orWhere('last_name', 'like', "%{$search}%")
+                  ->orWhere('username', 'like', "%{$search}%")
+                  ->orWhere('email', 'like', "%{$search}%");
+            });
+        })
+        ->paginate(10);
+        // ->withQueryString();
         return view('admin.user-management.user-management', compact('users'));
     }
 
