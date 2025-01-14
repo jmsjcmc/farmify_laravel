@@ -59,7 +59,7 @@ return new class extends Migration
             $table->string('product_type');
             $table->text('description')->nullable();
             $table->decimal('price', 10, 2);
-            $table->string('unit'); // e.g., kg, piece, dozen
+            $table->string('unit');
             $table->integer('available_quantity');
             $table->string('product_image')->nullable();
             $table->boolean('is_available')->default(true);
@@ -75,7 +75,7 @@ return new class extends Migration
             $table->dateTime('start_time');
             $table->dateTime('end_time');
             $table->boolean('is_recurring')->default(false);
-            $table->string('recurrence_pattern')->nullable(); // daily, weekly, monthly
+            $table->string('recurrence_pattern')->nullable();
             $table->timestamps();
         });
 
