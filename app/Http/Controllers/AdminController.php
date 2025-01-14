@@ -62,8 +62,20 @@ class AdminController extends Controller
             'username' => 'required|string|unique:users|max:255',
             'email' => 'required|email|unique:users|max:255',
             'password' => 'nullable|min:8',
-            'role' => 'required|exists:roles,name'
+            'role' => 'required|exists:roles,name',
+            'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
+
+        if ($request->hasFile('profile_image')) {
+            if ($user->profile_image) {
+                Storage::delete('public/images/profile/' . $user->profile_image);
+            }
+
+            $image = $request->file('profile_image');
+            $imageName = time() - '_' . $image->getClientOriginalName();
+            $image->storeAs('public/images/profile', $imageName);
+            $validate['profile_image'] = $imageName;
+        }
 
         if (empty($validate['password'])) {
             unset($validate['password']);
@@ -77,6 +89,7 @@ class AdminController extends Controller
 
     public function deleteUser(User $user)
     {
+        
         $user->delete();
         return redirect()->back()->with('success', 'User deleted successfully');
     }
