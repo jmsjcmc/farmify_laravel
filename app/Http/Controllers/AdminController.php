@@ -45,7 +45,9 @@ class AdminController extends Controller
            $image = $request->file('profile_image');
            $imageName = time() . '_' . $image->getClientOriginalName();
            $image->storeAs('public/images/profile', $imageName);
-           $validate['profile_image'] = $imageName;
+           $validate['profile_image'] = asset('storage/images/profile/' . $imageName);
+        } else {
+            $validate['profile_image'] = asset('storage/images/profile/default-avatar.png');
         }
 
         $user = User::create($validate);
@@ -74,7 +76,7 @@ class AdminController extends Controller
             $image = $request->file('profile_image');
             $imageName = time() - '_' . $image->getClientOriginalName();
             $image->storeAs('public/images/profile', $imageName);
-            $validate['profile_image'] = $imageName;
+            $validate['profile_image'] = asset('storage/images/profile/' . $imageName);
         }
 
         if (empty($validate['password'])) {

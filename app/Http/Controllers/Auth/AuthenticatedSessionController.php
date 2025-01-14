@@ -32,6 +32,11 @@ class AuthenticatedSessionController extends Controller
             $request->session()->regenerate();
 
             $user = Auth::user();
+            if(!$user->profile_image){
+                $user->update([
+                    'profile_image' => asset('storage/images/profile/default-avatar.png')
+                ]);
+            }
 
             if ($user->hasRole('Admin')) {
                 return redirect()->route('admin.dashboard');
