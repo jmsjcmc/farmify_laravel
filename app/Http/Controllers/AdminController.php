@@ -89,7 +89,9 @@ class AdminController extends Controller
 
     public function deleteUser(User $user)
     {
-        
+        if($user->profile_image){
+            Storage::delete('public/images/profile/' . $user->profile_image);
+        }
         $user->delete();
         return redirect()->back()->with('success', 'User deleted successfully');
     }
