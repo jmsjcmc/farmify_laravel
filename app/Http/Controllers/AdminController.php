@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 class AdminController extends Controller
 {
     public function viewDashboard()
@@ -40,7 +41,12 @@ class AdminController extends Controller
             'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        
+        if ($request->hasFile('profile_image')) {
+           $image = $request->file('profile_image');
+           $imageName = time() . '_' . $image->getClientOriginalName();
+           $image->storeAs('public/images/profile', $imageName);
+           $validate['profile_image'] = $imageName;
+        }
 
         $user = User::create($validate);
         $user->assignRole($validate['role']);
