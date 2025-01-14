@@ -36,8 +36,11 @@ class AdminController extends Controller
             'username' => 'required|string|unique:users|max:255',
             'email' => 'required|email|unique:users|max:255',
             'password' => 'required|min:8',
-            'role' => 'required|exists:roles,name'
+            'role' => 'required|exists:roles,name',
+            'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
+
+        
 
         $user = User::create($validate);
         $user->assignRole($validate['role']);
