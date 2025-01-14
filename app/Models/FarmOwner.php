@@ -46,26 +46,26 @@ class FarmOwner extends Model
 
     public function images()
     {
-
+        return $this->hasMany(FarmImage::class);
     }
 
     public function certifications()
     {
-
+        return $this->hasMany(FarmCertification::class);
     }
 
     public function products()
     {
-
+        return $this->hasMany(FarmProduct::class);
     }
 
     public function schedules()
     {
-
+        return $this->hasMany(FarmSchedule::class);
     }
 
     public function facilities()
     {
-        
+        return $this->hasMany(FarmFacility::class);
     }
 }
