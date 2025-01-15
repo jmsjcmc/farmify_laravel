@@ -53,4 +53,50 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+
+    function previewImage(input, previewId) {
+        const preview = document.getElementById(previewId);
+        if (!preview) return;
+
+        const file = input.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                preview.classList.remove('hidden');
+            }
+            reader.readAsDataURL(file);
+        } else {
+            preview.src = '#';
+            preview.classList.add('hidden');
+        }
+    }
+
+    const businessPermitInput = document.getElementById('business_permit_image');
+    const validInput = document.getElementById('valid_id_image');
+
+    if (businessPermitInput) {
+        businessPermitInput.addEventListener('change', function() {
+            previewImage(this, 'business_permit_preview');
+        });
+    }
+
+    if (validInput) {
+        validInput.addEventListener('change', function(){
+            previewImage(this, 'valid_id_preview');
+        });
+    }
+
+    const form = document.querySelector('form');
+    if (form) {
+        form.addEventListener('reset', function(){
+            const previews = document.querySelectorAll('img[id$="_preview"]');
+            previews.forEach(preview => {
+                preview.src = '#';
+                preview.classList.add('hidden');
+            });
+        });
+    }
 });
+
+

@@ -1,8 +1,24 @@
 <x-consumer-layout>
+    @if ($errors->any())
+    <div class="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+        <strong>Please check the following errors:</strong>
+        <ul class="list-disc list-inside">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
+@if (session('success'))
+    <div class="mb-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded">
+        {{ session('success') }}
+    </div>
+@endif
     <section class="bg-white dark:bg-gray-900">
         <div class="py-8 px-4 mx-auto max-w-2xl lg:py-16">
             <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Farm Owner Registration</h2>
-            <form action="{{ route('consumer.register-farm-owner')}}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('consumer.register-farm-owner.store')}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
 
@@ -60,6 +76,9 @@
                     <div>
                         <label for="business_permit_image" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Business Permit Image</label>
                         <input type="file" name="business_permit_image" id="business_permit_image" accept="image/*" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" required>
+                        <div class="mt-2">
+                            <img id="business_permit_preview" src="#" alt="Business Permit Preview" class="max-w-xs rounded-lg hidden">
+                        </div>
                     </div>
 
                     <div class="sm:col-span-2">
@@ -86,6 +105,9 @@
                     <div class="sm:col-span-2">
                         <label for="valid_id_image" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Valid ID Image</label>
                         <input type="file" name="valid_id_image" id="valid_id_image" accept="image/*" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" required>
+                        <div class="mt-2">
+                            <img id="valid_id_preview" src="#" alt="Valid ID Preview" class="max-w-xs rounded-lg hidden">
+                        </div>
                     </div>
                 </div>
 
@@ -100,4 +122,5 @@
             </form>
         </div>
       </section>
+      @vite('resources/js/user.js')
 </x-consumer-layout>
