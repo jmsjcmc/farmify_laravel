@@ -25,4 +25,9 @@ class ConsumerController extends Controller
     {
         return view('consumer.consumer-setting.register-farm-owner');
     }
+
+    public function registerFarmOwner(Request $request)
+    {
+        
+    }
 }
