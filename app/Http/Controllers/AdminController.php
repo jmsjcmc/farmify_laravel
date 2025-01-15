@@ -102,4 +102,9 @@ class AdminController extends Controller
     {
         return response()->json($user->load('roles'));
     }
+
+    public function viewOwnerManagement()
+    {
+        return view('admin.owner-registration.owner-management');
+    }
 }
