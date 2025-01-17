@@ -1,5 +1,4 @@
 <x-guest-layout>
-    <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
     <form method="POST" action="{{ route('login') }}">
@@ -15,7 +14,6 @@
                 required autofocus />
             <x-input-error :messages="$errors->get('login')" class="mt-2" />
         </div>
-        <!-- Password -->
         <div class="mt-4">
             <x-input-label for="password" :value="__('Password')" />
 
@@ -37,7 +35,6 @@
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
 
-        <!-- Remember Me -->
         <div class="flex mt-4 items-center justify-between">
             <label for="remember_me" class="inline-flex items-center">
                 <input id="remember_me" type="checkbox"
@@ -53,16 +50,17 @@
             @endif
         </div>
 
-        <div class="flex items-center justify-between mt-4">
-            <button type="submit" class="group px-6 py-1 rounded-lg bg-neutral-50 border text-green-500 hover:bg-green-500">
+        <div class="mt-10">
+            <button type="submit" class="group px-6 py-1 w-full rounded-lg bg-neutral-50 border text-green-500 hover:bg-green-500">
                     <span class="group-hover:text-white text-sm transition-all duration-300 uppercase font-semibold">Login</span>
             </button>
 
-            <button class="group px-6 py-1 rounded-lg bg-green-500 border text-white hover:bg-neutral-50 hover:text-green-500">
+            <p class="text-sm flex justify-center mt-5">Don't have an account? <a href="{{ route('register') }}" class="ml-1 text-green-500 hover:underline">Register here</a></p>
+            {{-- <button class="group px-6 py-1 rounded-lg bg-green-500 border text-white hover:bg-neutral-50 hover:text-green-500">
                 <a href="{{ route('register') }}">
                     <span class="group-hover:text-green-500 text-sm transition-all duration-300 uppercase font-semibold">Register</span>
                 </a>
-            </button>
+            </button> --}}
         </div>
     </form>
 
