@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
+use App\Models\FarmOwner;
 class AdminController extends Controller
 {
     public function viewDashboard()
@@ -106,5 +107,21 @@ class AdminController extends Controller
     public function viewOwnerManagement()
     {
         return view('admin.owner-registration.owner-management');
+    }
+
+    public function viewDocument($type, FarmOwner $farmOwner)
+    {
+        $path = null;
+        if ($type === 'permit') {
+            $path = $farmOwner->business_permit_image;
+        } elseif ($type === 'id') {
+            $path = $farmOwner->valid_id_image;
+        }
+
+        if (!$path || !Storage::exists($path)) {
+            abort(404);
+        }
+
+        return response()->file(Storage::path($path));
     }
 }
