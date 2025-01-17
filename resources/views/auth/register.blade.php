@@ -51,19 +51,13 @@
 
         </div>
 
-
-
-        <div class="flex items-center justify-between mt-4">
-            <button class="group px-6 py-1 rounded-lg bg-neutral-50 border text-green-500 hover:bg-green-500">
-                <a href="{{ route('login')}}">
-                    <span class="group-hover:text-white text-sm transition-all duration-300 uppercase font-semibold">Login</span>
-                </a>
+        <div class="mt-10">
+            <button type="submit" class="group px-6 py-1 w-full rounded-lg bg-neutral-50 border text-green-500 hover:bg-green-500">
+                    <span class="group-hover:text-white text-sm transition-all duration-300 uppercase font-semibold">Create Account</span>
             </button>
 
-            <button type="submit"
-                class="group px-6 py-1 rounded-lg bg-green-500 border text-white hover:bg-neutral-50 hover:text-green-500">
-                    <span class="group-hover:text-green-500 text-sm transition-all duration-300 uppercase font-semibold">Register</span>
-            </button>
+            <p class="text-sm flex justify-center mt-5">Already have an account? <a href="{{ route('login') }}" class="ml-1 text-green-500 hover:underline">Login here</a></p>
+
         </div>
     </form>
 

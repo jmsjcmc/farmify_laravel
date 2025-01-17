@@ -56,11 +56,7 @@
             </button>
 
             <p class="text-sm flex justify-center mt-5">Don't have an account? <a href="{{ route('register') }}" class="ml-1 text-green-500 hover:underline">Register here</a></p>
-            {{-- <button class="group px-6 py-1 rounded-lg bg-green-500 border text-white hover:bg-neutral-50 hover:text-green-500">
-                <a href="{{ route('register') }}">
-                    <span class="group-hover:text-green-500 text-sm transition-all duration-300 uppercase font-semibold">Register</span>
-                </a>
-            </button> --}}
+
         </div>
     </form>
 
