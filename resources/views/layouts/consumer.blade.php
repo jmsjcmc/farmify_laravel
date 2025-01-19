@@ -48,26 +48,20 @@
                             </li>
                             <li class="shrink-0">
                                 <a href="#" title=""
-                                    class="flex text-sm font-medium text-gray-900 hover:text-primary-700 dark:text-white dark:hover:text-primary-500">
-                                    Best Sellers
-                                </a>
-                            </li>
-                            <li class="shrink-0">
-                                <a href="#" title=""
-                                    class="flex text-sm font-medium text-gray-900 hover:text-primary-700 dark:text-white dark:hover:text-primary-500">
-                                    Gift Ideas
-                                </a>
-                            </li>
-                            <li class="shrink-0">
-                                <a href="#" title=""
-                                    class="text-sm font-medium text-gray-900 hover:text-primary-700 dark:text-white dark:hover:text-primary-500">
-                                    Today's Deals
-                                </a>
-                            </li>
-                            <li class="shrink-0">
-                                <a href="#" title=""
                                     class="text-sm font-medium text-gray-900 hover:text-primary-700 dark:text-white dark:hover:text-primary-500">
                                     Sell
+                                </a>
+                            </li>
+                            <li class="shrink-0">
+                                <a href="{{ route('consumer.jobs') }}" title=""
+                                    class="text-sm font-medium text-gray-900 hover:text-primary-700 dark:text-white dark:hover:text-primary-500">
+                                    Jobs
+                                </a>
+                            </li>
+                            <li class="shrink-0">
+                                <a href="{{ route('consumer.farms') }}" title=""
+                                    class="text-sm font-medium text-gray-900 hover:text-primary-700 dark:text-white dark:hover:text-primary-500">
+                                    Farms
                                 </a>
                             </li>
                             <li class="shrink-0">

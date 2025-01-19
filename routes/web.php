@@ -28,6 +28,8 @@ Route::group(['middleware' => ['role:Consumer']], function () {
     Route::get('/consumer-setting', [ConsumerController::class, 'viewSetting'])->name('consumer.setting');
     Route::get('/consumer-account', [ConsumerController::class, 'viewAccount'])->name('consumer.account');
     Route::get('/consumer-register-farm-owner', [ConsumerController::class, 'viewRegisterFarmOwner'])->name('consumer.register-farm-owner');
+    Route::get('/consumer-jobs', [ConsumerController::class, 'viewJobs'])->name('consumer.jobs');
+    Route::get('/consumer-farms', [ConsumerController::class, 'viewFarms'])->name('consumer.farms');
     Route::post('/consumer-register-farm-owner', [ConsumerController::class, 'registerFarmOwner'])->name('consumer.register-farm-owner.store');
 });
 

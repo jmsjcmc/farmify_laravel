@@ -13,6 +13,16 @@ class ConsumerController extends Controller
         return view('consumer.consumer-dashboard');
     }
 
+    public function viewJobs()
+    {
+        return view('consumer.jobs.jobs');
+    }
+
+    public function viewFarms()
+    {
+        return view('consumer.farms.farms');
+    }
+
     public function viewSetting()
     {
         return view('consumer.consumer-setting.consumer-setting');
