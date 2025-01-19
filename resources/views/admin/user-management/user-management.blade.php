@@ -528,9 +528,9 @@
                                                             <span
                                                                 class="text-xs">{{ $farmOwner->business_permit_number }}</span>
                                                             @if ($farmOwner->business_permit_image)
-                                                                <a href="#"
+                                                                <a href="{{ asset('storage/' . $farmOwner->business_permit_image) }}"
                                                                     class="text-blue-600 hover:underline text-xs"
-                                                                    onclick="window.open('{{ Storage::url($farmOwner->business_permit_image) }}', '_blank')">
+                                                                    target="_blank">
                                                                     View Permit
                                                                 </a>
                                                             @endif
@@ -541,9 +541,9 @@
                                                             <span
                                                                 class="text-xs">{{ $farmOwner->valid_id_number }}</span>
                                                             @if ($farmOwner->valid_id_image)
-                                                                <a href="#"
+                                                                <a href="{{ asset('storage/' . $farmOwner->valid_id_image) }}"
                                                                     class="text-blue-600 hover:underline text-xs"
-                                                                    onclick="window.open('{{ Storage::url($farmOwner->valid_id_image) }}', '_blank')">
+                                                                    target="_blank">
                                                                     View ID
                                                                 </a>
                                                             @endif
@@ -566,7 +566,7 @@
                                                 </td>
                                                 <td class="px-4 py-3">
                                                     <div class="flex items-center space-x-2">
-                                                        @if ($farmOwner->status === 'pending')
+                                                        @if ($farmOwner->status === 'Pending')
                                                             <button type="button"
                                                                 onclick="approveFarmOwner({{ $farmOwner->id }})"
                                                                 class="px-2 py-1 text-xs font-medium text-white bg-green-600 rounded hover:bg-green-700">

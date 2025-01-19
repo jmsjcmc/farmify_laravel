@@ -45,12 +45,18 @@ class ConsumerController extends Controller
         ]);
 
 
-        $businessPermitPath = $request->file('business_permit_image')->store('public/farm_documents/permits');
-        $businessPermitName = str_replace('public/', '', $businessPermitPath);
+        $businessPermitPath = $request->file('business_permit_image')
+        ->storeAs('farm_documents/permits',
+            time() . '_' . $request->file('business_permit_image')->getClientOriginalName(),
+            'public'
+        );
 
 
-        $validIdPath = $request->file('valid_id_image')->store('public/farm_documents/ids');
-        $validIdName = str_replace('public/', '', $validIdPath);
+        $validIdPath = $request->file('valid_id_image')
+        ->storeAs('farm_documents/ids',
+            time() . '_' . $request->file('valid_id_image')->getClientOriginalName(),
+            'public'
+        );
 
 
         $farmOwner = FarmOwner::create([
@@ -62,10 +68,10 @@ class ConsumerController extends Controller
             'contact_number' => $request->contact_number,
             'farm_description' => $request->farm_description,
             'business_permit_number' => $request->business_permit_number,
-            'business_permit_image' => $businessPermitName,
+            'business_permit_image' => $businessPermitPath,
             'valid_id_type' => $request->valid_id_type,
             'valid_id_number' => $request->valid_id_number,
-            'valid_id_image' => $validIdName,
+            'valid_id_image' => $validIdPath,
             'status' => 'PENDING'
         ]);
 

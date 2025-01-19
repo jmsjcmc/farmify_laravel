@@ -155,6 +155,7 @@ class AdminController extends Controller
         ]);
     }
 
+    
 
     public function viewDocument($type, FarmOwner $farmOwner)
     {
