@@ -480,170 +480,194 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($farmOwners as $farmOwner)
-                                        <tr class="border-b dark:border-gray-700">
-                                            <th scope="row"
-                                                class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                {{ $farmOwner->user->first_name }} {{ $farmOwner->user->last_name }}
-                                            </th>
-                                            <td class="px-4 py-3">
-                                                <div class="flex flex-col">
-                                                    <span class="font-medium">{{ $farmOwner->farm_name }}</span>
-                                                    <span class="text-xs">{{ $farmOwner->farm_address }}</span>
-                                                    <span class="text-xs">Size: {{ $farmOwner->farm_size }} | Type:
-                                                        {{ $farmOwner->farm_type }}</span>
-                                                </div>
-                                            </td>
-                                            <td class="px-4 py-3">
-                                                <div class="flex flex-col">
-                                                    <span>{{ $farmOwner->contact_number }}</span>
-                                                    <span class="text-xs">{{ $farmOwner->user->email }}</span>
-                                                </div>
-                                            </td>
-                                            <td class="px-4 py-3">
-                                                <div class="flex flex-col">
-                                                    <div class="mb-1">
-                                                        <span class="text-xs font-medium">Business Permit:</span>
-                                                        <span
-                                                            class="text-xs">{{ $farmOwner->business_permit_number }}</span>
-                                                        @if ($farmOwner->business_permit_image)
-                                                            <a href="#"
-                                                                class="text-blue-600 hover:underline text-xs"
-                                                                onclick="window.open('{{ Storage::url($farmOwner->business_permit_image) }}', '_blank')">
-                                                                View Permit
-                                                            </a>
-                                                        @endif
-                                                    </div>
-                                                    <div>
-                                                        <span
-                                                            class="text-xs font-medium">{{ $farmOwner->valid_id_type }}:</span>
-                                                        <span class="text-xs">{{ $farmOwner->valid_id_number }}</span>
-                                                        @if ($farmOwner->valid_id_image)
-                                                            <a href="#"
-                                                                class="text-blue-600 hover:underline text-xs"
-                                                                onclick="window.open('{{ Storage::url($farmOwner->valid_id_image) }}', '_blank')">
-                                                                View ID
-                                                            </a>
-                                                        @endif
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="px-4 py-3">
-                                                <span
-                                                    class="px-2 py-1 text-xs font-medium rounded-full
-                                                @if ($farmOwner->status === 'Approved') bg-green-100 text-green-800
-                                                @elseif($farmOwner->status === 'Rejected') bg-red-100 text-red-800
-                                                @else bg-yellow-100 text-yellow-800 @endif">
-                                                    {{ ucfirst($farmOwner->status) }}
-                                                </span>
-                                                @if ($farmOwner->rejection_reason)
-                                                    <div class="text-xs text-red-600 mt-1">
-                                                        {{ $farmOwner->rejection_reason }}
-                                                    </div>
-                                                @endif
-                                            </td>
-                                            <td class="px-4 py-3">
-                                                <div class="flex items-center space-x-2">
-                                                    @if ($farmOwner->status === 'pending')
-                                                        <button type="button"
-                                                            onclick="approveFarmOwner({{ $farmOwner->id }})"
-                                                            class="px-2 py-1 text-xs font-medium text-white bg-green-600 rounded hover:bg-green-700">
-                                                            Approve
-                                                        </button>
-                                                        <button type="button"
-                                                            onclick="rejectFarmOwner({{ $farmOwner->id }})"
-                                                            class="px-2 py-1 text-xs font-medium text-white bg-red-600 rounded hover:bg-red-700">
-                                                            Reject
-                                                        </button>
-                                                    @endif
-                                                    <button type="button"
-                                                        onclick="viewDetails({{ $farmOwner->id }})"
-                                                        class="px-2 py-1 text-xs font-medium text-gray-700 bg-gray-200 rounded hover:bg-gray-300">
-                                                        View Details
-                                                    </button>
+                                    @if ($farmOwners->isEmpty())
+                                        <tr>
+                                            <td colspan="6" class="px-4 py-8 text-center">
+                                                <div class="flex flex-col items-center justify-center">
+                                                    <svg class="w-12 h-12 text-gray-400 mb-3" fill="none"
+                                                        stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2"
+                                                            d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4">
+                                                        </path>
+                                                    </svg>
+                                                    <span class="text-gray-500 text-lg font-medium">No Data
+                                                        Available</span>
+                                                    <p class="text-gray-400 text-sm mt-1">No farm owners found in the
+                                                        system.</p>
                                                 </div>
                                             </td>
                                         </tr>
-                                    @endforeach
+                                    @else
+                                        @foreach ($farmOwners as $farmOwner)
+                                            <tr class="border-b dark:border-gray-700">
+                                                <th scope="row"
+                                                    class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                    {{ $farmOwner->user->first_name }}
+                                                    {{ $farmOwner->user->last_name }}
+                                                </th>
+                                                <td class="px-4 py-3">
+                                                    <div class="flex flex-col">
+                                                        <span class="font-medium">{{ $farmOwner->farm_name }}</span>
+                                                        <span class="text-xs">{{ $farmOwner->farm_address }}</span>
+                                                        <span class="text-xs">Size: {{ $farmOwner->farm_size }} |
+                                                            Type:
+                                                            {{ $farmOwner->farm_type }}</span>
+                                                    </div>
+                                                </td>
+                                                <td class="px-4 py-3">
+                                                    <div class="flex flex-col">
+                                                        <span>{{ $farmOwner->contact_number }}</span>
+                                                        <span class="text-xs">{{ $farmOwner->user->email }}</span>
+                                                    </div>
+                                                </td>
+                                                <td class="px-4 py-3">
+                                                    <div class="flex flex-col">
+                                                        <div class="mb-1">
+                                                            <span class="text-xs font-medium">Business Permit:</span>
+                                                            <span
+                                                                class="text-xs">{{ $farmOwner->business_permit_number }}</span>
+                                                            @if ($farmOwner->business_permit_image)
+                                                                <a href="#"
+                                                                    class="text-blue-600 hover:underline text-xs"
+                                                                    onclick="window.open('{{ Storage::url($farmOwner->business_permit_image) }}', '_blank')">
+                                                                    View Permit
+                                                                </a>
+                                                            @endif
+                                                        </div>
+                                                        <div>
+                                                            <span
+                                                                class="text-xs font-medium">{{ $farmOwner->valid_id_type }}:</span>
+                                                            <span
+                                                                class="text-xs">{{ $farmOwner->valid_id_number }}</span>
+                                                            @if ($farmOwner->valid_id_image)
+                                                                <a href="#"
+                                                                    class="text-blue-600 hover:underline text-xs"
+                                                                    onclick="window.open('{{ Storage::url($farmOwner->valid_id_image) }}', '_blank')">
+                                                                    View ID
+                                                                </a>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="px-4 py-3">
+                                                    <span
+                                                        class="px-2 py-1 text-xs font-medium rounded-full
+                                                @if ($farmOwner->status === 'Approved') bg-green-100 text-green-800
+                                                @elseif($farmOwner->status === 'Rejected') bg-red-100 text-red-800
+                                                @else bg-yellow-100 text-yellow-800 @endif">
+                                                        {{ ucfirst($farmOwner->status) }}
+                                                    </span>
+                                                    @if ($farmOwner->rejection_reason)
+                                                        <div class="text-xs text-red-600 mt-1">
+                                                            {{ $farmOwner->rejection_reason }}
+                                                        </div>
+                                                    @endif
+                                                </td>
+                                                <td class="px-4 py-3">
+                                                    <div class="flex items-center space-x-2">
+                                                        @if ($farmOwner->status === 'pending')
+                                                            <button type="button"
+                                                                onclick="approveFarmOwner({{ $farmOwner->id }})"
+                                                                class="px-2 py-1 text-xs font-medium text-white bg-green-600 rounded hover:bg-green-700">
+                                                                Approve
+                                                            </button>
+                                                            <button type="button"
+                                                                onclick="rejectFarmOwner({{ $farmOwner->id }})"
+                                                                class="px-2 py-1 text-xs font-medium text-white bg-red-600 rounded hover:bg-red-700">
+                                                                Reject
+                                                            </button>
+                                                        @endif
+                                                        <button type="button"
+                                                            onclick="viewDetails({{ $farmOwner->id }})"
+                                                            class="px-2 py-1 text-xs font-medium text-gray-700 bg-gray-200 rounded hover:bg-gray-300">
+                                                            View Details
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        @endif
                                 </tbody>
                             </table>
                         </div>
                         <nav class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4"
-                        aria-label="Table navigation">
-                        <span class="text-sm font-normal text-gray-500 dark:text-gray-400">
-                            Showing
-                            <span
-                                class="font-semibold text-gray-900 dark:text-white">{{ $farmOwners->firstItem() ?? 0 }}-{{ $farmOwners->lastItem() ?? 0 }}</span>
-                            of
-                            <span class="font-semibold text-gray-900 dark:text-white">{{ $farmOwners->total() }}</span>
-                        </span>
-                        <ul class="inline-flex items-stretch -space-x-px">
-                            @if ($farmOwners->onFirstPage())
-                                <li>
-                                    <span
-                                        class="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 cursor-not-allowed dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400">
-                                        <span class="sr-only">Previous</span>
-                                        <svg class="w-5 h-5" aria-hidden="true" fill="currentColor"
-                                            viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd"
-                                                d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                                                clip-rule="evenodd" />
-                                        </svg>
-                                    </span>
-                                </li>
-                            @else
-                                <li>
-                                    <a href="{{ $farmOwners->previousPageUrl() }}"
-                                        class="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                                        <span class="sr-only">Previous</span>
-                                        <svg class="w-5 h-5" aria-hidden="true" fill="currentColor"
-                                            viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd"
-                                                d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                                                clip-rule="evenodd" />
-                                        </svg>
-                                    </a>
-                                </li>
-                            @endif
-                            @foreach ($farmOwners->getUrlRange(1, $farmOwners->lastPage()) as $page => $url)
-                                <li>
-                                    <a href="{{ $url }}"
-                                        @if ($page == $farmOwners->currentPage()) aria-current="page"
+                            aria-label="Table navigation">
+                            <span class="text-sm font-normal text-gray-500 dark:text-gray-400">
+                                Showing
+                                <span
+                                    class="font-semibold text-gray-900 dark:text-white">{{ $farmOwners->firstItem() ?? 0 }}-{{ $farmOwners->lastItem() ?? 0 }}</span>
+                                of
+                                <span
+                                    class="font-semibold text-gray-900 dark:text-white">{{ $farmOwners->total() }}</span>
+                            </span>
+                            <ul class="inline-flex items-stretch -space-x-px">
+                                @if ($farmOwners->onFirstPage())
+                                    <li>
+                                        <span
+                                            class="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 cursor-not-allowed dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400">
+                                            <span class="sr-only">Previous</span>
+                                            <svg class="w-5 h-5" aria-hidden="true" fill="currentColor"
+                                                viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd"
+                                                    d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                                                    clip-rule="evenodd" />
+                                            </svg>
+                                        </span>
+                                    </li>
+                                @else
+                                    <li>
+                                        <a href="{{ $farmOwners->previousPageUrl() }}"
+                                            class="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                                            <span class="sr-only">Previous</span>
+                                            <svg class="w-5 h-5" aria-hidden="true" fill="currentColor"
+                                                viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd"
+                                                    d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                                                    clip-rule="evenodd" />
+                                            </svg>
+                                        </a>
+                                    </li>
+                                @endif
+                                @foreach ($farmOwners->getUrlRange(1, $farmOwners->lastPage()) as $page => $url)
+                                    <li>
+                                        <a href="{{ $url }}"
+                                            @if ($page == $farmOwners->currentPage()) aria-current="page"
                                         class="flex items-center justify-center text-sm z-10 py-2 px-3 leading-tight text-primary-600 bg-primary-50 border border-primary-300 hover:bg-primary-100 hover:text-primary-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
                                     @else
                                         class="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" @endif>{{ $page }}</a>
-                                </li>
-                            @endforeach
+                                    </li>
+                                @endforeach
 
-                            @if ($farmOwners->hasMorePages())
-                                <li>
-                                    <a href="{{ $farmOwners->nextPageUrl() }}"
-                                        class="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                                        <span class="sr-only">Next</span>
-                                        <svg class="w-5 h-5" aria-hidden="true" fill="currentColor"
-                                            viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd"
-                                                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                                clip-rule="evenodd" />
-                                        </svg>
-                                    </a>
-                                </li>
-                            @else
-                                <li>
-                                    <span
-                                        class="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 cursor-not-allowed dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400">
-                                        <span class="sr-only">Next</span>
-                                        <svg class="w-5 h-5" aria-hidden="true" fill="currentColor"
-                                            viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd"
-                                                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                                clip-rule="evenodd" />
-                                        </svg>
-                                    </span>
-                                </li>
-                            @endif
-                        </ul>
-                    </nav>
+                                @if ($farmOwners->hasMorePages())
+                                    <li>
+                                        <a href="{{ $farmOwners->nextPageUrl() }}"
+                                            class="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                                            <span class="sr-only">Next</span>
+                                            <svg class="w-5 h-5" aria-hidden="true" fill="currentColor"
+                                                viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd"
+                                                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                                    clip-rule="evenodd" />
+                                            </svg>
+                                        </a>
+                                    </li>
+                                @else
+                                    <li>
+                                        <span
+                                            class="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 cursor-not-allowed dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400">
+                                            <span class="sr-only">Next</span>
+                                            <svg class="w-5 h-5" aria-hidden="true" fill="currentColor"
+                                                viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd"
+                                                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                                    clip-rule="evenodd" />
+                                            </svg>
+                                        </span>
+                                    </li>
+                                @endif
+                            </ul>
+                        </nav>
                     </div>
                 </div>
             </div>
