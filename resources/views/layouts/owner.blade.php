@@ -25,10 +25,10 @@
         <!-- drawer init and show -->
         <div class="flex justify-start">
             <button
-                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                class="text-black bg-neutral-50 hover:bg-green-500 hover:text-white focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2 focus:outline-none"
                 type="button" data-drawer-target="drawer-navigation" data-drawer-show="drawer-navigation"
                 aria-controls="drawer-navigation">
-                Show navigation
+                <svg  xmlns="http://www.w3.org/2000/svg"  width="20"  height="20"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-menu-2"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 6l16 0" /><path d="M4 12l16 0" /><path d="M4 18l16 0" /></svg>
             </button>
         </div>
 
@@ -50,6 +50,22 @@
             </button>
             <div class="py-4 overflow-y-auto">
                 <ul class="space-y-2 font-medium">
+                    @role('Farm Owner')
+                    <li>
+                        <a href="{{ route('consumer.dashboard') }}"
+                            class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                            <svg class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                viewBox="0 0 22 21">
+                                <path
+                                    d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z" />
+                                <path
+                                    d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z" />
+                            </svg>
+                            <span class="ms-3">Home</span>
+                        </a>
+                    </li>
+                    @endrole
                     <li>
                         <a href="#"
                             class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
