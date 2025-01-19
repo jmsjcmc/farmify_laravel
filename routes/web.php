@@ -43,7 +43,7 @@ Route::group(['middleware' => ['role:Admin']], function () {
 
 });
 
-Route::group(['middleware' => ['role:Owner']], function () {
+Route::group(['middleware' => ['role:Farm Owner']], function () {
     Route::get('/owner-dashboard', [OwnerController::class, 'viewDashboard'])->name('owner.dashboard');
 });
 
