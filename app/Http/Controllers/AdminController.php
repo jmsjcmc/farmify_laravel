@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use App\Models\FarmOwner;
+use Illuminate\Support\Facades\Auth;
 class AdminController extends Controller
 {
     public function viewDashboard()
@@ -27,8 +28,20 @@ class AdminController extends Controller
         })
         ->paginate(10);
         // ->withQueryString();
-        return view('admin.user-management.user-management', compact('users'));
+        $farmOwners = FarmOwner::with('user')
+        ->when($search, function($query, $search){
+            $query->whereHas('user', function($q) use ($search) {
+                $q->where('first_name','like', "%{$search}%")
+                ->orWhere('last_name', 'like', "%{$search}%")
+                ->orWhere('email', 'like', "%{$search}%");
+            })
+            ->orWhere('farm_name', 'like', "%{$search}%")
+            ->orWhere('business_permit_number', 'like', "%{$search}%");
+        })
+        ->paginate(10);
+        return view('admin.user-management.user-management', compact('users', 'farmOwners'));
     }
+
 
     public function addUser(Request $request)
     {
@@ -107,6 +120,17 @@ class AdminController extends Controller
     public function viewOwnerManagement()
     {
         return view('admin.owner-registration.owner-management');
+    }
+
+    public function approveFarmOwner(Request $request, FarmOwner $farmOwner)
+    {
+        $farmOwner -> update([
+            'status' => 'Approved',
+            'approved_at' => now(),
+            'approved_by' => Auth::id()
+        ]);
+
+
     }
 
     public function viewDocument($type, FarmOwner $farmOwner)
