@@ -48,6 +48,7 @@ Route::group(['middleware' => ['role:Admin']], function () {
 Route::group(['middleware' => ['role:Farm Owner']], function () {
     Route::get('/owner-dashboard', [OwnerController::class, 'viewDashboard'])->name('owner.dashboard');
     Route::get('/owner-farm-management', [OwnerController::class, 'viewFarmManagement'])->name('owner.farm-management');
+    Route::get('/owner-job-management', [OwnerController::class, 'viewJobManagement'])->name('owner.job-management');
 });
 
 Route::group(['middleware' => ['role:Laborer']], function () {

@@ -15,4 +15,9 @@ class OwnerController extends Controller
     {
         return view('owner.farm-management.farm-management');
     }
+
+    public function viewJobManagement()
+    {
+        return view('owner.job-management.job-management');
+    }
 }
