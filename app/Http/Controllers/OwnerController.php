@@ -10,4 +10,9 @@ class OwnerController extends Controller
     {
         return view('owner.owner-dashboard');
     }
+
+    public function viewFarmManagement()
+    {
+        return view('owner.farm-management.farm-management');
+    }
 }
