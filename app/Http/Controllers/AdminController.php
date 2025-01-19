@@ -130,7 +130,28 @@ class AdminController extends Controller
             'approved_by' => Auth::id()
         ]);
 
+        $farmOwner->user->assignRole('Farm Owner');
+        return response()->json([
+            'success' => true,
+            'message' => 'Farm owner approved successfully'
+        ]);
+    }
 
+    public function rejectFarmOwner(Request $request, FarmOwner $farmOwner)
+    {
+        $request -> validate([
+            'rejection_reason' => 'required|string|max:255'
+        ]);
+
+        $farmOwner -> update([
+            'status' => 'Rejected',
+            'rejection_reason' => $request->rejection_reason
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Farm owner rejected successfully'
+        ]);
     }
 
     public function viewDocument($type, FarmOwner $farmOwner)
