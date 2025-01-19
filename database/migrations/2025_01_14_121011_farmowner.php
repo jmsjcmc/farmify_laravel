@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('valid_id_type');
             $table->string('valid_id_number')->unique();
             $table->string('valid_id_image');
-            $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
+            $table->enum('status', ['Pending', 'Approved', 'Rejected'])->default('Pending');
             $table->text('rejection_reason')->nullable();
             $table->timestamp('approved_at')->nullable();
             $table->foreignId('approved_by')->nullable()->constrained('users');
