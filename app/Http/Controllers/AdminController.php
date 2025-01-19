@@ -26,8 +26,8 @@ class AdminController extends Controller
                   ->orWhere('email', 'like', "%{$search}%");
             });
         })
-        ->paginate(10);
-        // ->withQueryString();
+        ->paginate(10)
+        ->withQueryString();
         $farmOwners = FarmOwner::with('user')
         ->when($search, function($query, $search){
             $query->whereHas('user', function($q) use ($search) {
@@ -38,7 +38,8 @@ class AdminController extends Controller
             ->orWhere('farm_name', 'like', "%{$search}%")
             ->orWhere('business_permit_number', 'like', "%{$search}%");
         })
-        ->paginate(10);
+        ->paginate(10)
+        ->withQueryString();
         return view('admin.user-management.user-management', compact('users', 'farmOwners'));
     }
 
