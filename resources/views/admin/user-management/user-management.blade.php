@@ -587,5 +587,5 @@
 </div>
 
     @include('admin.user-management.user-add-edit')
-    @vite(['resources/js/user.js'])
+    @vite(['resources/js/user.js', 'resources/js/admin.js'])
 </x-admin-layout>

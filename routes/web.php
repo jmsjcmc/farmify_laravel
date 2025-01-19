@@ -37,6 +37,7 @@ Route::group(['middleware' => ['role:Admin']], function () {
     Route::get('/admin/users/{user}/edit', [AdminController::class, 'editUser'])->name('admin.edit-user');
     Route::get('/admin-owner-management', [AdminController::class, 'viewOwnerManagement'])->name('admin.owner-management');
     Route::post('/admin/users', [AdminController::class, 'addUser'])->name('admin.add-user');
+    Route::post('/admin/farm-owners/{farmOwner}/approve', [AdminController::class, 'approveFarmOwner'])-> name('admin.approve-farm-owner');
     Route::put('/admin/users/{user}', [AdminController::class, 'updateUser'])->name('admin.update-user');
     Route::delete('/admin/users/{user}', [AdminController::class, 'deleteUser'])->name('admin.delete-user');
 

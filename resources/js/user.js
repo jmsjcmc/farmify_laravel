@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const userModal = document.getElementById('userModal');
     const userForm = document.getElementById('userForm');
     const modalTitle = document.getElementById('modalTitle');
@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     document.querySelectorAll('[data-modal-target="userModal"]').forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function () {
             const action = this.dataset.modalAction;
             const userId = this.dataset.userId;
 
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const file = input.files[0];
         if (file) {
             const reader = new FileReader();
-            reader.onload = function(e) {
+            reader.onload = function (e) {
                 preview.src = e.target.result;
                 preview.classList.remove('hidden');
             }
@@ -76,20 +76,20 @@ document.addEventListener('DOMContentLoaded', function() {
     const validInput = document.getElementById('valid_id_image');
 
     if (businessPermitInput) {
-        businessPermitInput.addEventListener('change', function() {
+        businessPermitInput.addEventListener('change', function () {
             previewImage(this, 'business_permit_preview');
         });
     }
 
     if (validInput) {
-        validInput.addEventListener('change', function(){
+        validInput.addEventListener('change', function () {
             previewImage(this, 'valid_id_preview');
         });
     }
 
     const form = document.querySelector('form');
     if (form) {
-        form.addEventListener('reset', function(){
+        form.addEventListener('reset', function () {
             const previews = document.querySelectorAll('img[id$="_preview"]');
             previews.forEach(preview => {
                 preview.src = '#';
@@ -98,29 +98,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    function showTab(tabName) {
-        document.getElementById('users-content').classList.add('hidden');
-        document.getElementById('farm-owners-content').classList.add('hidden');
 
-        document.getElementById(`${tabName}-content`).classList.remove('hidden');
 
-        document.getElementById('users-tab').classList.remove('text-blue-600', 'border-blue-600', 'active');
-        document.getElementById('farm-owners-tab').classList.remove('text-blue-600', 'border-blue-600', 'active');
 
-        document.getElementById(`${tabName}-tab`).classList.add('text-blue-600', 'border-blue-600', 'active');
-    }
-
-    window.showTab = showTab;
-
-document.addEventListener('DOMContentLoaded', function() {
-
-    const userModal = document.getElementById('userModal');
-    const userForm = document.getElementById('userForm');
-    const modalTitle = document.getElementById('modalTitle');
-
-    
-    showTab('users');
-});
 });
 
 
