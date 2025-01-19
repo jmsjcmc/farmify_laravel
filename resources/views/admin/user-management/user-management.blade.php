@@ -7,7 +7,7 @@
     @endif
 
 
-    <div class="border-b border-gray-200 dark:border-gray-700">
+    <div class="border-b border-gray-200 dark:border-gray-700 ml-10">
         <ul class="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
             <li class="me-2">
                 <a href="#" id="users-tab" onclick="showTab('users')"
