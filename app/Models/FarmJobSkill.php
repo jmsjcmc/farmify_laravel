@@ -17,6 +17,6 @@ class FarmJobSkill extends Model
 
     public function job()
     {
-        return $this->belongsTo()
+        return $this->belongsTo(FarmJob::class, 'farm_job_id');
     }
 }
