@@ -9,7 +9,6 @@
                         <span class="mr-2 text-5xl font-extrabold">$29</span>
                         <span class="text-gray-500 dark:text-gray-400">/month</span>
                     </div>
-
                     <a href="#" class="text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:ring-primary-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-white  dark:focus:ring-primary-900">Get started</a>
                 </div>
                 <div class="flex flex-col p-6 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border border-gray-100 shadow dark:border-gray-600 xl:p-8 dark:bg-gray-800 dark:text-white">
@@ -19,7 +18,6 @@
                         <span class="mr-2 text-5xl font-extrabold">$99</span>
                         <span class="text-gray-500 dark:text-gray-400">/month</span>
                     </div>
-
                     <a href="#" class="text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:ring-primary-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-white  dark:focus:ring-primary-900">Get started</a>
                 </div>
                 <div class="flex flex-col p-6 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border border-gray-100 shadow dark:border-gray-600 xl:p-8 dark:bg-gray-800 dark:text-white">
@@ -35,4 +33,17 @@
             </div>
         </div>
       </section>
+      <div class="flex h-screen">
+    <div class="w-64 bg-gray-100 border-r">
+        <div class="p-4">
+            <h2 class="text-xl font-semibold mb-4">Menu</h2>
+            <ul class="space-y-2">
+                <li class="p-2 hover:bg-gray-200 rounded">Job Dashboard</li>
+                <li class="p-2 hover:bg-gray-200 rounded">Job Management</li>
+                <li class="p-2 hover:bg-gray-200 rounded">Job Management</li>
+            </ul>
+        </div>
+    </div>
+      </div>
 </x-owner-layout>
+
