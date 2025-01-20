@@ -68,4 +68,9 @@ class FarmOwner extends Model
     {
         return $this->hasMany(FarmFacility::class);
     }
+
+    public function jobs()
+    {
+        return $this->hasMany(FarmJob::class);
+    }
 }

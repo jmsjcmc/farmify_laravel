@@ -54,4 +54,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(FarmOwner::class);
     }
+
+    public function jobApplications()
+    {
+        return $this->hasMany(FarmJobApplication::class);
+    }
 }
