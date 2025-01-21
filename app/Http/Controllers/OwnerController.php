@@ -20,7 +20,8 @@ class OwnerController extends Controller
 
     public function viewJobManagement()
     {
-        return view('owner.job-management.job-management');
+        $jobs = FarmJob::where('farm_owner_id', Auth::user()->farmOwner->id)->get();
+        return view('owner.job-management.job-management', compact('jobs'));
     }
 
     public function addJobForFManager(Request $request)
@@ -42,7 +43,7 @@ class OwnerController extends Controller
             'benefits' => 'nullable|string',
         ]);
 
-        
+
         $validated['farm_owner_id'] = Auth::user()->farmOwner->id;
         $job = FarmJob::create($validated);
 

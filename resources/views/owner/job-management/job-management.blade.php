@@ -60,7 +60,8 @@
         <div class="flex-1 p-8">
             <div class="flex justify-between items-center mb-6">
                 <h1 class="text-2xl font-bold">Job Management</h1>
-                <button onclick="openModal()" class="bg-green-500 hover:bg-neutral-50 border text-white hover:text-green-500 px-4 py-2 rounded">
+                <button onclick="openModal()"
+                    class="bg-green-500 hover:bg-neutral-50 border text-white hover:text-green-500 px-4 py-2 rounded">
                     Create Job
                 </button>
             </div>
@@ -69,7 +70,57 @@
             <div class="bg-white rounded-lg shadow">
 
                 <div class="p-4">
-                    Jobs content will go here
+                    <div class="mb-4 flex justify-end space-x-2">
+                        <button onclick="switchView('table')" id="tableBtn" class="px-3 py-1 rounded border">
+                            Table View
+                        </button>
+                        <button onclick="switchView('card')" id="cardBtn" class="px-3 py-1 rounded border bg-green-500 text-white">
+                            Card View
+                        </button>
+                    </div>
+
+                    <div id="tableView" class="overflow-x-auto hidden">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Title</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Type</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Salary</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Location</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                @foreach($jobs as $job)
+                                <tr>
+                                    <td class="px-6 py-4">{{ $job->title }}</td>
+                                    <td class="px-6 py-4">{{ $job->job_type }}</td>
+                                    <td class="px-6 py-4">₱{{ number_format($job->salary_from) }} - ₱{{ number_format($job->salary_to) }} / {{ $job->salary_type }}</td>
+                                    <td class="px-6 py-4">{{ $job->location }}</td>
+                                    <td class="px-6 py-4">
+                                        <button class="text-blue-600 hover:text-blue-900">Edit</button>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div id="cardView" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        @foreach($jobs as $job)
+                        <div class="bg-white rounded-lg shadow p-6">
+                            <h3 class="text-xl font-semibold mb-2">{{ $job->title }}</h3>
+                            <div class="text-gray-600 mb-4">
+                                <p><span class="font-medium">Type:</span> {{ $job->job_type }}</p>
+                                <p><span class="font-medium">Salary:</span> ₱{{ number_format($job->salary_from) }} - ₱{{ number_format($job->salary_to) }} / {{ $job->salary_type }}</p>
+                                <p><span class="font-medium">Location:</span> {{ $job->location }}</p>
+                            </div>
+                            <div class="flex justify-end">
+                                <button class="text-blue-600 hover:text-blue-900">Edit</button>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
                 </div>
             </div>
         </div>
