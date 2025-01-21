@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\FarmJob;
+use Illuminate\Support\Facades\Auth;
 
 class OwnerController extends Controller
 {
@@ -19,5 +21,32 @@ class OwnerController extends Controller
     public function viewJobManagement()
     {
         return view('owner.job-management.job-management');
+    }
+
+    public function addJobForFManager(Request $request)
+    {
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'job_type' => 'required|string|in:Farm Manager,Laborer',
+            'description' => 'required|string',
+            'requirements' => 'required|string',
+            'responsibilities' => 'required|string',
+            'salary_from' => 'required|numeric|min:0',
+            'salary_to' => 'required|numeric|gte:salary_from',
+            'salary_type' => 'required|string|in:Per Hour,Per Day,Per Month',
+            'employment_type' => 'required|string|in:Full-time,Part-time,Contract',
+            'vacancies' => 'required|integer|min:1',
+            'start_date' => 'required|date',
+            'end_date' => 'nullable|date|after:start_date',
+            'location' => 'required|string',
+            'benefits' => 'nullable|string',
+        ]);
+
+        
+        $validated['farm_owner_id'] = Auth::user()->farmOwner->id;
+        $job = FarmJob::create($validated);
+
+        return redirect()->route('owner.job-management')
+            ->with('success', 'Job listing created successfully');
     }
 }
