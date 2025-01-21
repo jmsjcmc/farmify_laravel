@@ -11,6 +11,7 @@ export default defineConfig({
                 'resources/js/footer.js',
                 'resources/js/user.js',
                 'resources/js/admin.js',
+                'resources/js/owner.js',
             ],
             refresh: true,
         }),

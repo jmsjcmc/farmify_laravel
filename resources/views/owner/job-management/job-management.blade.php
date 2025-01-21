@@ -60,8 +60,8 @@
         <div class="flex-1 p-8">
             <div class="flex justify-between items-center mb-6">
                 <h1 class="text-2xl font-bold">Job Management</h1>
-                <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
-                    Add New Job
+                <button onclick="openModal()" class="bg-green-500 hover:bg-neutral-50 border text-white hover:text-green-500 px-4 py-2 rounded">
+                    Create Job
                 </button>
             </div>
 
@@ -74,4 +74,6 @@
             </div>
         </div>
     </div>
+    @include('owner.job-management.add-job')
+    @vite(['resources/js/owner.js'])
 </x-owner-layout>
