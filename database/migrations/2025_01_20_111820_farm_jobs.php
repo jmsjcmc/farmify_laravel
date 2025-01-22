@@ -28,7 +28,7 @@ return new class extends Migration
             $table->date('end_date')->nullable();
             $table->string('location');
             $table->text('benefits')->nullable();
-            $table->enum('status', ['Draft', 'Published', 'Closed'])->default('Draft');
+            $table->enum('status', ['Draft', 'Active', 'Closed'])->default('Draft');
             $table->timestamps();
             $table->softDeletes();
         });

@@ -15,7 +15,11 @@ class ConsumerController extends Controller
 
     public function viewJobs()
     {
-        return view('consumer.jobs.jobs');
+        $jobs = FarmJob::with(['farmOwner', 'skills'])
+        ->where('status', 'ACTIVE')
+        // ->orderBy('')
+        ->paginate(12);
+        return view('consumer.jobs.jobs', compact ('jobs'));
     }
 
     public function viewFarms()
