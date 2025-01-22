@@ -50,6 +50,7 @@ Route::group(['middleware' => ['role:Farm Owner']], function () {
     Route::get('/owner-farm-management', [OwnerController::class, 'viewFarmManagement'])->name('owner.farm-management');
     Route::get('/owner-job-management', [OwnerController::class, 'viewJobManagement'])->name('owner.job-management');
     Route::post('/owner/jobs', [OwnerController::class, 'addJobForFManager'])->name('owner.jobs.store');
+    Route::patch('/owner/jobs/{job}/status', [OwnerController::class, 'updateStatus'])->name('owner.jobs.update-status');
 });
 
 Route::group(['middleware' => ['role:Laborer']], function () {

@@ -50,4 +50,29 @@ class OwnerController extends Controller
         return redirect()->route('owner.job-management')
             ->with('success', 'Job listing created successfully');
     }
+
+    public function updateStatus(Request $request, FarmJob $job)
+    {
+
+        $validated = $request->validate([
+            'status' => 'required|string|in:Active,Closed,Draft'
+        ]);
+
+
+        if ($job->farm_owner_id !== Auth::user()->farmOwner->id) {
+            return response()->json([
+                'message' => 'Unauthorized action.'
+            ], 403);
+        }
+
+
+        $job->update([
+            'status' => $validated['status']
+        ]);
+
+        return response()->json([
+            'message' => 'Job status updated successfully',
+            'status' => $job->status
+        ]);
+    }
 }
