@@ -6,6 +6,9 @@ use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use App\Models\FarmOwner;
+use App\Models\FarmJob;
+use App\Models\FarmJobApplication;
 
 class DatabaseSeeder extends Seeder
 {
@@ -65,5 +68,63 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $admin->assignRole('Admin');
+
+        // $laborers = User::factory(20)
+        //     ->create()
+        //     ->each(function ($user) {
+        //         $user->assignRole('Farm Laborer');
+        //     });
+
+
+        // $farmOwnerUsers = User::factory(10)
+        //     ->create()
+        //     ->each(function ($user) use ($laborers) {
+        //         $user->assignRole('Farm Owner');
+
+
+        //         $farmOwner = FarmOwner::factory()
+        //             ->for($user)
+        //             ->create();
+
+
+        //         FarmJob::factory(3)
+        //             ->for($farmOwner)
+        //             ->create()
+        //             ->each(function ($job) use ($laborers) {
+
+        //                 \App\Models\FarmJobSkill::factory(3)
+        //                     ->for($job, 'job')
+        //                     ->create();
+
+
+        //                 $randomLaborers = $laborers->random(5);
+        //                 foreach ($randomLaborers as $laborer) {
+        //                     FarmJobApplication::factory()
+        //                         ->for($job, 'job')
+        //                         ->for($laborer, 'applicant')
+        //                         ->create();
+        //                 }
+        //             });
+
+        //         \App\Models\FarmCertification::factory(2)
+        //             ->for($farmOwner)
+        //             ->create();
+
+        //         \App\Models\FarmFacility::factory(3)
+        //             ->for($farmOwner)
+        //             ->create();
+
+        //         \App\Models\FarmImage::factory(5)
+        //             ->for($farmOwner)
+        //             ->create();
+
+        //         \App\Models\FarmProduct::factory(5)
+        //             ->for($farmOwner)
+        //             ->create();
+
+        //         \App\Models\FarmSchedule::factory(5)
+        //             ->for($farmOwner)
+        //             ->create();
+        //     });
     }
 }

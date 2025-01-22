@@ -87,6 +87,7 @@
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Type</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Salary</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Location</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
                                 </tr>
                             </thead>
@@ -98,25 +99,58 @@
                                     <td class="px-6 py-4">₱{{ number_format($job->salary_from) }} - ₱{{ number_format($job->salary_to) }} / {{ $job->salary_type }}</td>
                                     <td class="px-6 py-4">{{ $job->location }}</td>
                                     <td class="px-6 py-4">
+                                        <span class="px-2 py-1 rounded text-sm
+                                            @if($job->status === 'Active') bg-green-100 text-green-800
+                                            @elseif($job->status === 'Closed') bg-red-100 text-red-800
+                                            @else bg-gray-100 text-gray-800
+                                            @endif">
+                                            {{ $job->status }}
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4 space-x-2">
                                         <button class="text-blue-600 hover:text-blue-900">Edit</button>
+                                        @if($job->status === 'Draft')
+                                            <button onclick="updateJobStatus({{ $job->id }}, 'Active')"
+                                                class="text-green-600 hover:text-green-900">Activate</button>
+                                        @elseif($job->status === 'Active')
+                                            <button onclick="updateJobStatus({{ $job->id }}, 'Closed')"
+                                                class="text-red-600 hover:text-red-900">Close</button>
+                                        @endif
                                     </td>
                                 </tr>
                                 @endforeach
                             </tbody>
+
                         </table>
                     </div>
 
                     <div id="cardView" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                         @foreach($jobs as $job)
                         <div class="bg-white rounded-lg shadow p-6">
-                            <h3 class="text-xl font-semibold mb-2">{{ $job->title }}</h3>
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-semibold">{{ $job->title }}</h3>
+                                <span class="px-2 py-1 rounded text-sm
+                                    @if($job->status === 'Active') bg-green-100 text-green-800
+                                    @elseif($job->status === 'Closed') bg-red-100 text-red-800
+                                    @else bg-gray-100 text-gray-800
+                                    @endif">
+                                    {{ $job->status }}
+                                </span>
+                            </div>
                             <div class="text-gray-600 mb-4">
                                 <p><span class="font-medium">Type:</span> {{ $job->job_type }}</p>
                                 <p><span class="font-medium">Salary:</span> ₱{{ number_format($job->salary_from) }} - ₱{{ number_format($job->salary_to) }} / {{ $job->salary_type }}</p>
                                 <p><span class="font-medium">Location:</span> {{ $job->location }}</p>
                             </div>
-                            <div class="flex justify-end">
+                            <div class="flex justify-end space-x-2">
                                 <button class="text-blue-600 hover:text-blue-900">Edit</button>
+                                @if($job->status === 'Draft')
+                                    <button onclick="updateJobStatus({{ $job->id }}, 'Active')"
+                                        class="text-green-600 hover:text-green-900">Activate</button>
+                                @elseif($job->status === 'Active')
+                                    <button onclick="updateJobStatus({{ $job->id }}, 'Closed')"
+                                        class="text-red-600 hover:text-red-900">Close</button>
+                                @endif
                             </div>
                         </div>
                         @endforeach

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\FarmOwner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\FarmJob;
 
 class ConsumerController extends Controller
 {
