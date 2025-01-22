@@ -43,6 +43,12 @@ class ConsumerController extends Controller
         return view('consumer.consumer-setting.register-farm-owner');
     }
 
+    public function showJob(FarmJob $job)
+{
+    $job->load(['farmOwner', 'skills']);
+    return view('consumer.jobs.show', compact('job'));
+}
+
     public function registerFarmOwner(Request $request)
     {
         $request->validate([
