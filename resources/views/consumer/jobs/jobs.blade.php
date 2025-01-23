@@ -1,4 +1,9 @@
 <x-consumer-layout>
+    @if(session('success'))
+    <div class="mb-4 rounded-lg bg-green-100 p-4 text-sm text-green-700 dark:bg-green-200 dark:text-green-800" role="alert">
+        {{ session('success') }}
+    </div>
+@endif
     <section class="bg-gray-50 py-8 antialiased dark:bg-gray-900 md:py-12">
         <div class="mx-auto max-w-screen-xl px-4 2xl:px-0">
             <!-- Heading & Filters -->
@@ -34,6 +39,7 @@
                     <h2 class="mt-3 text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">Jobs</h2>
                 </div>
                 <div class="flex items-center space-x-4">
+                    <div id="modal-backdrop" class="fixed inset-0 bg-gray-900 bg-opacity-50 hidden"></div>
                     <button data-modal-toggle="filterModal" data-modal-target="filterModal" type="button"
                         class="flex w-full items-center justify-center rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700 sm:w-auto">
                         <svg class="-ms-0.5 me-2 h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
