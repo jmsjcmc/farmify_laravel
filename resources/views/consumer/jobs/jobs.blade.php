@@ -26,19 +26,7 @@
                                             stroke-width="2" d="m9 5 7 7-7 7" />
                                     </svg>
                                     <a href="#"
-                                        class="ms-1 text-sm font-medium text-gray-700 hover:text-primary-600 dark:text-gray-400 dark:hover:text-white md:ms-2">Products</a>
-                                </div>
-                            </li>
-                            <li aria-current="page">
-                                <div class="flex items-center">
-                                    <svg class="h-5 w-5 text-gray-400 rtl:rotate-180" aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                                        viewBox="0 0 24 24">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="2" d="m9 5 7 7-7 7" />
-                                    </svg>
-                                    <span
-                                        class="ms-1 text-sm font-medium text-gray-500 dark:text-gray-400 md:ms-2">Electronics</span>
+                                        class="ms-1 text-sm font-medium text-gray-700 hover:text-primary-600 dark:text-gray-400 dark:hover:text-white md:ms-2">Jobs</a>
                                 </div>
                             </li>
                         </ol>
@@ -167,8 +155,8 @@
             </div>
 
             <div class="mt-6">
-                <a href="{{ route('consumer.jobs.show', $job->id) }}" class="inline-flex w-full items-center justify-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-                    View Details
+                <a href="{{ route('consumer.jobs.show', $job->id) }}" class="group border inline-flex w-full items-center justify-center hover:bg-neutral-50 rounded-lg bg-green-500 px-5 py-2.5 text-sm font-medium hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300">
+                    <span class="group-hover:text-green-500 text-white">View Details</span>
                 </a>
             </div>
         </div>
