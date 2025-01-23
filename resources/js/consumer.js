@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const applyButtons = document.querySelectorAll('[data-modal-target^="applyModal-"]');
     const closeButtons = document.querySelectorAll('[data-modal-hide]');
     const backdrop = document.getElementById('modal-backdrop');
-
+    const applicationForms = document.querySelectorAll('form[action*="/consumer/jobs/"][action$="/apply"]');
     function showModal(modal) {
         backdrop.classList.remove('hidden');
         modal.classList.remove('hidden');
@@ -44,6 +44,43 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
+    applicationForms.forEach(form => {
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const submitButton = form.querySelector('button[type="submit"]');
+            if (submitButton) {
+                submitButton.disabled = true;
+                submitButton.textContent = 'Submitting...';
+            }
+
+            try {
+                const formData = new FormData(form);
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                    },
+                    credentials: 'same-origin'
+                });
+
+                if (response.ok) {
+                    window.location.reload();
+                } else {
+                    throw new Error('Application submission failed');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                if (submitButton) {
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Apply Now';
+                }
+                alert('Failed to submit application. Please try again.');
+            }
+        });
+    });
+
     window.addEventListener('click', (event) => {
         const modals = document.querySelectorAll('[id^="jobModal-"], [id^="applyModal-"]');
         modals.forEach(modal => {
@@ -52,14 +89,4 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     });
-});
-
-document.addEventListener('submit', function(e) {
-    if (e.target.matches('[action^="/jobs/"][action$="/apply"]')) {
-        const submitButton = e.target.querySelector('button[type="submit"]');
-        if (submitButton) {
-            submitButton.disabled = true;
-            submitButton.innerHTML = 'Submitting...';
-        }
-    }
 });

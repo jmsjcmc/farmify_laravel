@@ -28,14 +28,12 @@
                     </div>
                 </div>
                 <div class="flex items-center space-x-2 rounded-b border-t border-gray-200 p-6 dark:border-gray-600">
-                    <button type="button"
-                    data-modal-target="applyModal-{{ $job->id }}"
-                    data-modal-toggle="applyModal-{{ $job->id }}"
-                    data-modal-hide="jobModal-{{ $job->id }}"
-                    class="rounded-lg bg-green-500 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-green-600 focus:outline-none focus:ring-4 focus:ring-green-300">
-                    Apply Now
-                </button>
-                    <button type="button" data-modal-hide="applyModal-{{ $job->id }}" class="rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-900 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:border-gray-500 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-600">
+                    <button type="submit"
+                        class="rounded-lg bg-green-500 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-green-600 focus:outline-none focus:ring-4 focus:ring-green-300">
+                        Apply Now
+                    </button>
+                    <button type="button" data-modal-hide="applyModal-{{ $job->id }}"
+                        class="rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-900 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:border-gray-500 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-600">
                         Cancel
                     </button>
                 </div>

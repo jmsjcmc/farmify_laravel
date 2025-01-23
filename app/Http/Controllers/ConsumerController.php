@@ -103,7 +103,8 @@ class ConsumerController extends Controller
     }
 
     public function applyJob(Request $request, FarmJob $job)
-    {
+{
+    try {
         $request->validate([
             'cover_letter' => 'required|string|max:1000',
             'resume' => 'required|file|mimes:pdf,doc,docx|max:2048',
@@ -119,6 +120,15 @@ class ConsumerController extends Controller
             'status' => 'PENDING',
         ]);
 
-        return redirect()->back()->with('success', 'Your application has been submitted successfully!');
+        return response()->json([
+            'success' => true,
+            'message' => 'Your application has been submitted successfully!'
+        ]);
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Failed to submit application: ' . $e->getMessage()
+        ], 422);
     }
+}
 }
