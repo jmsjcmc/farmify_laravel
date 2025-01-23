@@ -50,18 +50,18 @@
             <div class="p-4">
                 <h2 class="text-xl font-semibold mb-4">Menu</h2>
                 <ul class="space-y-2">
-                    <li class="p-2 hover:bg-gray-200 rounded">Job Dashboard</li>
-                    <li class="p-2 hover:bg-gray-200 rounded">Job Management</li>
+                    <li class="p-2 hover:bg-gray-200 rounded" onclick="switchSelection('jobs')">Job Dashboard</li>
+                    <li class="p-2 hover:bg-gray-200 rounded" onclick="switchSelection('applicants')">Applicants</li>
                     <li class="p-2 hover:bg-gray-200 rounded">Job Management</li>
                 </ul>
             </div>
         </div>
 
-        <div class="flex-1 p-8">
+        <div class="flex-1 p-8 hidden" id="jobsSection">
             <div class="flex justify-between items-center mb-6">
                 <h1 class="text-2xl font-bold">Job Management</h1>
                 <button onclick="openModal()"
-                    class="bg-green-500 hover:bg-neutral-50 border text-white hover:text-green-500 px-4 py-2 rounded">
+                    class="bg-green-500 rounded-lg hover:bg-neutral-50 border text-white hover:text-green-500 px-4 py-2">
                     Create Job
                 </button>
             </div>
@@ -157,6 +157,22 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div class="flex-1 p-8" id="applicantsSection">
+            <div class="flex justify-between items-center mb-6">
+                <h1 class="text-2xl font-bold">Applicants</h1>
+                <div class="flex space-x-2">
+                    <button onclick="switchView('table')" class="px-3 py-1 rounded border">
+                        Table
+                    </button>
+                    <button onclick="switchView('card')" class="px-3 py-1 rounded border">
+                        Card
+                    </button>
+                </div>
+            </div>
+
+
         </div>
     </div>
     @include('owner.job-management.add-job')
