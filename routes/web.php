@@ -32,6 +32,7 @@ Route::group(['middleware' => ['role:Consumer']], function () {
     Route::get('/jobs/{job}', [ConsumerController::class, 'showJob'])->name('consumer.jobs.show');
     Route::get('/consumer-farms', [ConsumerController::class, 'viewFarms'])->name('consumer.farms');
     Route::post('/consumer-register-farm-owner', [ConsumerController::class, 'registerFarmOwner'])->name('consumer.register-farm-owner.store');
+    Route::post('/consumer/jobs/{job}/apply', [ConsumerController::class, 'applyJob'])->name('consumer.jobs.apply');
 });
 
 Route::group(['middleware' => ['role:Admin']], function () {

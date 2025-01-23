@@ -6,6 +6,7 @@ use App\Models\FarmOwner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\FarmJob;
+use App\Models\FarmJobApplication;
 
 class ConsumerController extends Controller
 {
@@ -18,7 +19,7 @@ class ConsumerController extends Controller
     {
         $jobs = FarmJob::with(['farmOwner', 'skills'])
         ->where('status', 'ACTIVE')
-        // ->orderBy('')
+        ->orderBy('created_at', 'desc')
         ->paginate(12);
         return view('consumer.jobs.jobs', compact ('jobs'));
     }
@@ -99,5 +100,25 @@ class ConsumerController extends Controller
 
         return redirect()->route('consumer.dashboard')
             ->with('success', 'Farm owner registration submitted successfully. Please wait for admin approval.');
+    }
+
+    public function applyJob(Request $request, FarmJob $job)
+    {
+        $request->validate([
+            'cover_letter' => 'required|string|max:1000',
+            'resume' => 'required|file|mimes:pdf,doc,docx|max:2048',
+        ]);
+
+        $resumePath = $request->file('resume')->store('resumes', 'public');
+
+        $application = FarmJobApplication::create([
+            'farm_job_id' => $job->id,
+            'user_id' => Auth::id(),
+            'cover_letter' => $request->cover_letter,
+            'resume_path' => $resumePath,
+            'status' => 'PENDING',
+        ]);
+
+        return redirect()->back()->with('success', 'Your application has been submitted successfully!');
     }
 }
