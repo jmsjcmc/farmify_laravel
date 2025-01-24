@@ -172,6 +172,8 @@
                 </div>
             </div>
 
+            <div id="tableView" class="overflow-x-auto"></div>
+
 
         </div>
     </div>
