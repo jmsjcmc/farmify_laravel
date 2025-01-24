@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\FarmJob;
 use Illuminate\Support\Facades\Auth;
+use App\Models\FarmJobApplication;
+
 
 class OwnerController extends Controller
 {
@@ -17,11 +19,17 @@ class OwnerController extends Controller
     {
         return view('owner.farm-management.farm-management');
     }
-
     public function viewJobManagement()
     {
         $jobs = FarmJob::where('farm_owner_id', Auth::user()->farmOwner->id)->get();
-        return view('owner.job-management.job-management', compact('jobs'));
+        $applications = FarmJobApplication::whereHas('job', function ($query) {
+            $query->where('farm_owner_id', Auth::user()->farmOwner->id);
+        })
+        ->with(['applicant', 'job'])
+        ->orderBy('created_at', 'desc')
+        ->get();
+
+        return view('owner.job-management.job-management', compact('jobs', 'applications'));
     }
 
     public function addJobForFManager(Request $request)

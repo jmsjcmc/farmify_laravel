@@ -55,6 +55,67 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    function switchSection(section) {
+        const jobsSection = document.getElementById('jobsSection');
+        const applicantsSection = document.getElementById('applicantsSection');
+
+        if (section === 'jobs') {
+            jobsSection.classList.remove('hidden');
+            applicantsSection.classList.add('hidden');
+        } else {
+            jobsSection.classList.add('hidden');
+            applicantsSection.classList.remove('hidden');
+        }
+    }
+
+    function switchApplicantView(view) {
+        const tableView = document.getElementById('applicantTableView');
+        const cardView = document.getElementById('applicantCardView');
+        const tableBtn = document.getElementById('applicantTableBtn');
+        const cardBtn = document.getElementById('applicantCardBtn');
+
+        if (view === 'table') {
+            tableView.classList.remove('hidden');
+            cardView.classList.add('hidden');
+            tableBtn.classList.add('bg-green-500', 'text-white');
+            cardBtn.classList.remove('bg-green-500', 'text-white');
+        } else {
+            cardView.classList.remove('hidden');
+            tableView.classList.add('hidden');
+            cardBtn.classList.add('bg-green-500', 'text-white');
+            tableBtn.classList.remove('bg-green-500', 'text-white');
+        }
+    }
+
+    function viewApplication(applicationId) {
+        // Implement viewing application details
+        const modal = document.getElementById('applicationModal');
+        modal.classList.remove('hidden');
+        // Fetch and display application details
+    }
+
+    function closeApplicationModal() {
+        const modal = document.getElementById('applicationModal');
+        modal.classList.add('hidden');
+    }
+
+    function updateApplicationStatus(applicationId, status) {
+        // Implement status update logic
+        if (confirm(`Are you sure you want to ${status.toLowerCase()} this application?`)) {
+            // Make API call to update status
+        }
+    }
+
+    // Initialize with card view
+    document.addEventListener('DOMContentLoaded', function() {
+        switchApplicantView('card');
+    });
+
+    window.switchApplicantView = switchApplicantView;
+    window.updateApplicationStatus = updateApplicationStatus;
+    window.viewApplication = viewApplication;
+    window.closeApplicationModal = closeApplicationModal;
+    window.switchSection = switchSection;
     window.updateJobStatus = updateJobStatus;
     window.switchView = switchView;
     window.closeModal = closeModal;
