@@ -104,10 +104,40 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-  
+    function viewApplication(applicationId) {
+        fetch(`/owner/applications/${applicationId}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+
+            const modal = document.getElementById('applicationModal');
+            modal.classList.remove('hidden');
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Failed to load application details. Please try again.');
+        });
+    }
+
+    function viewResume(applicationId) {
+
+        window.open(`/owner/applications/resume/${applicationId}`, '_blank');
+    }
+
 
     switchApplicantView('card');
 
+    window.viewResume = viewResume;
     window.switchApplicantView = switchApplicantView;
     window.updateApplicationStatus = updateApplicationStatus;
     window.viewApplication = viewApplication;

@@ -25,7 +25,6 @@ class OwnerController extends Controller
         ->with(['applications'])
         ->get();
 
-    // Get applications with proper relationships
     $applications = FarmJobApplication::whereHas('job', function ($query) {
             $query->where('farm_owner_id', Auth::user()->farmOwner->id);
         })
@@ -91,5 +90,20 @@ class OwnerController extends Controller
             'message' => 'Job status updated successfully',
             'status' => $job->status
         ]);
+    }
+
+    // Farm Owner View Resume functions
+    public function viewResume(FarmJobApplication $application)
+    {
+        if ($application->job->farm_owner_id !== Auth::user()->farmOwner->id) {
+            abort(403);
+        }
+        $path = storage_path('app/public/' . $application->resume_path);
+
+        if (!file_exists($path)) {
+            abort(404);
+        }
+
+        return response()->file($path);
     }
 }

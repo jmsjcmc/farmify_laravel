@@ -41,16 +41,16 @@ Route::group(['middleware' => ['role:Admin']], function () {
     Route::get('/admin/users/{user}/edit', [AdminController::class, 'editUser'])->name('admin.edit-user');
     Route::get('/admin-owner-management', [AdminController::class, 'viewOwnerManagement'])->name('admin.owner-management');
     Route::post('/admin/users', [AdminController::class, 'addUser'])->name('admin.add-user');
-    Route::post('/admin/farm-owners/{farmOwner}/approve', [AdminController::class, 'approveFarmOwner'])-> name('admin.approve-farm-owner');
+    Route::post('/admin/farm-owners/{farmOwner}/approve', [AdminController::class, 'approveFarmOwner'])->name('admin.approve-farm-owner');
     Route::put('/admin/users/{user}', [AdminController::class, 'updateUser'])->name('admin.update-user');
     Route::delete('/admin/users/{user}', [AdminController::class, 'deleteUser'])->name('admin.delete-user');
-
 });
 
 Route::group(['middleware' => ['role:Farm Owner']], function () {
     Route::get('/owner-dashboard', [OwnerController::class, 'viewDashboard'])->name('owner.dashboard');
     Route::get('/owner-farm-management', [OwnerController::class, 'viewFarmManagement'])->name('owner.farm-management');
     Route::get('/owner-job-management', [OwnerController::class, 'viewJobManagement'])->name('owner.job-management');
+    Route::get('/owner/applications/resume/{application}', [OwnerController::class, 'viewResume'])->name('owner.applications.resume');
     Route::post('/owner/jobs', [OwnerController::class, 'addJobForFManager'])->name('owner.jobs.store');
     Route::patch('/owner/jobs/{job}/status', [OwnerController::class, 'updateStatus'])->name('owner.jobs.update-status');
 });
@@ -63,4 +63,4 @@ Route::group(['middleware' => ['role:Manager']], function () {
     Route::get('/manager-dashboard', [ManagerController::class, 'viewDashboard'])->name('manager.dashboard');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

@@ -257,9 +257,15 @@
                         <div class="space-y-2 mb-4">
                             <p class="text-sm"><span class="font-medium">Applied:</span>
                                 {{ $application->created_at->format('M d, Y') }}</p>
-                            <p class="text-sm"><span class="font-medium">Resume:</span>
+                            {{-- <p class="text-sm"><span class="font-medium">Resume:</span>
                                 <a href="{{ Storage::url($application->resume_path) }}" target="_blank"
                                     class="text-blue-600 hover:text-blue-800">View Resume</a>
+                            </p> --}}
+                            <p class="text-sm"><span class="font-medium">Resume:</span>
+                                <button onclick="viewResume('{{ $application->id }}')"
+                                    class="text-blue-600 hover:text-blue-800">
+                                    View Resume
+                                </button>
                             </p>
                         </div>
 
