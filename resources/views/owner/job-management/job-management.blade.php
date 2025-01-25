@@ -254,15 +254,8 @@
                     @endif
                 </div>
             </div>
-<<<<<<< HEAD
-            @endforeach
-            </div>
-=======
-
-            <div id="tableView" class="overflow-x-auto"></div>
 
 
->>>>>>> b5dfe1cc0ba0afced84d03d1cdd56726674d19d1
         </div>
     </div>
     @include('owner.job-management.view-applicant')
