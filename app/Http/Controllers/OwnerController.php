@@ -21,15 +21,24 @@ class OwnerController extends Controller
     }
     public function viewJobManagement()
     {
-        $jobs = FarmJob::where('farm_owner_id', Auth::user()->farmOwner->id)->get();
-        $applications = FarmJobApplication::whereHas('job', function ($query) {
+        $jobs = FarmJob::where('farm_owner_id', Auth::user()->farmOwner->id)
+        ->with(['applications'])
+        ->get();
+
+    // Get applications with proper relationships
+    $applications = FarmJobApplication::whereHas('job', function ($query) {
             $query->where('farm_owner_id', Auth::user()->farmOwner->id);
         })
-        ->with(['applicant', 'job'])
+        ->with([
+            'applicant' => function($query) {
+                $query->role('Consumer');
+            },
+            'job'
+        ])
         ->orderBy('created_at', 'desc')
         ->get();
 
-        return view('owner.job-management.job-management', compact('jobs', 'applications'));
+    return view('owner.job-management.job-management', compact('jobs', 'applications'));
     }
 
     public function addJobForFManager(Request $request)

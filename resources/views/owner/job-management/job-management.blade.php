@@ -190,7 +190,7 @@
                         <tr>
                             <td class="px-6 py-4">{{ $application->applicant->name ?? 'N/A' }}</td>
                             <td class="px-6 py-4">{{ $application->job->title ?? 'N/A' }}</td>
-                            <td class="px-6 py-4">{{ $application->created_at->format('M d, Y') }}</td>
+                            <td class="px-6 py-4">{{ $application->created_at ? $application->created_at->format('M d, Y') : 'N/A' }}</td>
                             <td class="px-6 py-4">
                                 <span class="px-2 py-1 rounded text-sm
                                     @if($application->status === 'PENDING') bg-yellow-100 text-yellow-800
@@ -255,7 +255,7 @@
                 </div>
             </div>
 
-
+@endforeach
         </div>
     </div>
     @include('owner.job-management.view-applicant')

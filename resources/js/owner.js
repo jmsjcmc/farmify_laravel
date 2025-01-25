@@ -88,10 +88,8 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function viewApplication(applicationId) {
-        // Implement viewing application details
         const modal = document.getElementById('applicationModal');
         modal.classList.remove('hidden');
-        // Fetch and display application details
     }
 
     function closeApplicationModal() {
@@ -100,16 +98,15 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function updateApplicationStatus(applicationId, status) {
-        // Implement status update logic
+
         if (confirm(`Are you sure you want to ${status.toLowerCase()} this application?`)) {
-            // Make API call to update status
+
         }
     }
 
-    // Initialize with card view
-    document.addEventListener('DOMContentLoaded', function() {
-        switchApplicantView('card');
-    });
+  
+
+    switchApplicantView('card');
 
     window.switchApplicantView = switchApplicantView;
     window.updateApplicationStatus = updateApplicationStatus;
