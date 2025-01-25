@@ -74,7 +74,8 @@
                         <button onclick="switchView('table')" id="tableBtn" class="px-3 py-1 rounded border">
                             Table View
                         </button>
-                        <button onclick="switchView('card')" id="cardBtn" class="px-3 py-1 rounded border bg-green-500 text-white">
+                        <button onclick="switchView('card')" id="cardBtn"
+                            class="px-3 py-1 rounded border bg-green-500 text-white">
                             Card View
                         </button>
                     </div>
@@ -83,41 +84,48 @@
                         <table class="min-w-full divide-y divide-gray-200">
                             <thead class="bg-gray-50">
                                 <tr>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Title</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Type</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Salary</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Location</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Title
+                                    </th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Type
+                                    </th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Salary
+                                    </th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Location
+                                    </th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status
+                                    </th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
-                                @foreach($jobs as $job)
-                                <tr>
-                                    <td class="px-6 py-4">{{ $job->title }}</td>
-                                    <td class="px-6 py-4">{{ $job->job_type }}</td>
-                                    <td class="px-6 py-4">₱{{ number_format($job->salary_from) }} - ₱{{ number_format($job->salary_to) }} / {{ $job->salary_type }}</td>
-                                    <td class="px-6 py-4">{{ $job->location }}</td>
-                                    <td class="px-6 py-4">
-                                        <span class="px-2 py-1 rounded text-sm
-                                            @if($job->status === 'Active') bg-green-100 text-green-800
+                                @foreach ($jobs as $job)
+                                    <tr>
+                                        <td class="px-6 py-4">{{ $job->title }}</td>
+                                        <td class="px-6 py-4">{{ $job->job_type }}</td>
+                                        <td class="px-6 py-4">₱{{ number_format($job->salary_from) }} -
+                                            ₱{{ number_format($job->salary_to) }} / {{ $job->salary_type }}</td>
+                                        <td class="px-6 py-4">{{ $job->location }}</td>
+                                        <td class="px-6 py-4">
+                                            <span
+                                                class="px-2 py-1 rounded text-sm
+                                            @if ($job->status === 'Active') bg-green-100 text-green-800
                                             @elseif($job->status === 'Closed') bg-red-100 text-red-800
-                                            @else bg-gray-100 text-gray-800
-                                            @endif">
-                                            {{ $job->status }}
-                                        </span>
-                                    </td>
-                                    <td class="px-6 py-4 space-x-2">
-                                        <button class="text-blue-600 hover:text-blue-900">Edit</button>
-                                        @if($job->status === 'Draft')
-                                            <button onclick="updateJobStatus({{ $job->id }}, 'Active')"
-                                                class="text-green-600 hover:text-green-900">Activate</button>
-                                        @elseif($job->status === 'Active')
-                                            <button onclick="updateJobStatus({{ $job->id }}, 'Closed')"
-                                                class="text-red-600 hover:text-red-900">Close</button>
-                                        @endif
-                                    </td>
-                                </tr>
+                                            @else bg-gray-100 text-gray-800 @endif">
+                                                {{ $job->status }}
+                                            </span>
+                                        </td>
+                                        <td class="px-6 py-4 space-x-2">
+                                            <button class="text-blue-600 hover:text-blue-900">Edit</button>
+                                            @if ($job->status === 'Draft')
+                                                <button onclick="updateJobStatus({{ $job->id }}, 'Active')"
+                                                    class="text-green-600 hover:text-green-900">Activate</button>
+                                            @elseif($job->status === 'Active')
+                                                <button onclick="updateJobStatus({{ $job->id }}, 'Closed')"
+                                                    class="text-red-600 hover:text-red-900">Close</button>
+                                            @endif
+                                        </td>
+                                    </tr>
                                 @endforeach
                             </tbody>
 
@@ -125,140 +133,151 @@
                     </div>
 
                     <div id="cardView" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        @foreach($jobs as $job)
-                        <div class="bg-white rounded-lg shadow p-6">
-                            <div class="flex justify-between items-start mb-2">
-                                <h3 class="text-xl font-semibold">{{ $job->title }}</h3>
-                                <span class="px-2 py-1 rounded text-sm
-                                    @if($job->status === 'Active') bg-green-100 text-green-800
+                        @foreach ($jobs as $job)
+                            <div class="bg-white rounded-lg shadow p-6">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h3 class="text-xl font-semibold">{{ $job->title }}</h3>
+                                    <span
+                                        class="px-2 py-1 rounded text-sm
+                                    @if ($job->status === 'Active') bg-green-100 text-green-800
                                     @elseif($job->status === 'Closed') bg-red-100 text-red-800
-                                    @else bg-gray-100 text-gray-800
-                                    @endif">
-                                    {{ $job->status }}
-                                </span>
+                                    @else bg-gray-100 text-gray-800 @endif">
+                                        {{ $job->status }}
+                                    </span>
+                                </div>
+                                <div class="text-gray-600 mb-4">
+                                    <p><span class="font-medium">Type:</span> {{ $job->job_type }}</p>
+                                    <p><span class="font-medium">Salary:</span> ₱{{ number_format($job->salary_from) }}
+                                        - ₱{{ number_format($job->salary_to) }} / {{ $job->salary_type }}</p>
+                                    <p><span class="font-medium">Location:</span> {{ $job->location }}</p>
+                                </div>
+                                <div class="flex justify-end space-x-2">
+                                    <button class="text-blue-600 hover:text-blue-900">Edit</button>
+                                    @if ($job->status === 'Draft')
+                                        <button onclick="updateJobStatus({{ $job->id }}, 'Active')"
+                                            class="text-green-600 hover:text-green-900">Activate</button>
+                                    @elseif($job->status === 'Active')
+                                        <button onclick="updateJobStatus({{ $job->id }}, 'Closed')"
+                                            class="text-red-600 hover:text-red-900">Close</button>
+                                    @endif
+                                </div>
                             </div>
-                            <div class="text-gray-600 mb-4">
-                                <p><span class="font-medium">Type:</span> {{ $job->job_type }}</p>
-                                <p><span class="font-medium">Salary:</span> ₱{{ number_format($job->salary_from) }} - ₱{{ number_format($job->salary_to) }} / {{ $job->salary_type }}</p>
-                                <p><span class="font-medium">Location:</span> {{ $job->location }}</p>
-                            </div>
-                            <div class="flex justify-end space-x-2">
-                                <button class="text-blue-600 hover:text-blue-900">Edit</button>
-                                @if($job->status === 'Draft')
-                                    <button onclick="updateJobStatus({{ $job->id }}, 'Active')"
-                                        class="text-green-600 hover:text-green-900">Activate</button>
-                                @elseif($job->status === 'Active')
-                                    <button onclick="updateJobStatus({{ $job->id }}, 'Closed')"
-                                        class="text-red-600 hover:text-red-900">Close</button>
-                                @endif
-                            </div>
-                        </div>
                         @endforeach
                     </div>
                 </div>
             </div>
         </div>
 
-        <div id="applicantsSection" class="hidden">
-        <div class="flex justify-between items-center mb-6">
-            <h1 class="text-2xl font-bold">Job Applicants</h1>
-            <div class="flex space-x-2">
-                <button onclick="switchApplicantView('table')" id="applicantTableBtn" class="px-3 py-1 rounded border">
-                    Table View
-                </button>
-                <button onclick="switchApplicantView('card')" id="applicantCardBtn" class="px-3 py-1 rounded border bg-green-500 text-white">
-                    Card View
-                </button>
+        <div id="applicantsSection" class="hidden flex-1 p-8">
+            <div class="flex justify-between items-center mb-6">
+                <h1 class="text-2xl font-bold">Job Applicants</h1>
+                <div class="flex space-x-2">
+                    <button onclick="switchApplicantView('table')" id="applicantTableBtn"
+                        class="px-3 py-1 rounded border">
+                        Table View
+                    </button>
+                    <button onclick="switchApplicantView('card')" id="applicantCardBtn"
+                        class="px-3 py-1 rounded border bg-green-500 text-white">
+                        Card View
+                    </button>
+                </div>
             </div>
-        </div>
 
-        <!-- Table View -->
-        <div id="applicantTableView" class="hidden bg-white rounded-lg shadow">
-            <div class="overflow-x-auto">
-                <table class="min-w-full divide-y divide-gray-200">
-                    <thead class="bg-gray-50">
-                        <tr>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Applicant Name</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Job Title</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Applied Date</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody class="bg-white divide-y divide-gray-200">
-                        @foreach($applications as $application)
-                        <tr>
-                            <td class="px-6 py-4">{{ $application->applicant->name ?? 'N/A' }}</td>
-                            <td class="px-6 py-4">{{ $application->job->title ?? 'N/A' }}</td>
-                            <td class="px-6 py-4">{{ $application->created_at ? $application->created_at->format('M d, Y') : 'N/A' }}</td>
-                            <td class="px-6 py-4">
-                                <span class="px-2 py-1 rounded text-sm
-                                    @if($application->status === 'PENDING') bg-yellow-100 text-yellow-800
+            <!-- Table View -->
+            <div id="applicantTableView" class="hidden bg-white rounded-lg shadow">
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Applicant
+                                    Name</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Job Title
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Applied
+                                    Date</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            @foreach ($applications as $application)
+                                <tr>
+                                    <td class="px-6 py-4">{{ $application->applicant->name ?? 'N/A' }}</td>
+                                    <td class="px-6 py-4">{{ $application->job->title ?? 'N/A' }}</td>
+                                    <td class="px-6 py-4">
+                                        {{ $application->created_at ? $application->created_at->format('M d, Y') : 'N/A' }}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span
+                                            class="px-2 py-1 rounded text-sm
+                                    @if ($application->status === 'PENDING') bg-yellow-100 text-yellow-800
                                     @elseif($application->status === 'APPROVED') bg-green-100 text-green-800
-                                    @elseif($application->status === 'REJECTED') bg-red-100 text-red-800
-                                    @endif">
-                                    {{ $application->status }}
-                                </span>
-                            </td>
-                            <td class="px-6 py-4 space-x-2">
-                                <button onclick="viewApplication({{ $application->id }})"
-                                    class="text-blue-600 hover:text-blue-900">View</button>
-                                @if($application->status === 'PENDING')
-                                    <button onclick="updateApplicationStatus({{ $application->id }}, 'APPROVED')"
-                                        class="text-green-600 hover:text-green-900">Approve</button>
-                                    <button onclick="updateApplicationStatus({{ $application->id }}, 'REJECTED')"
-                                        class="text-red-600 hover:text-red-900">Reject</button>
-                                @endif
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                                    @elseif($application->status === 'REJECTED') bg-red-100 text-red-800 @endif">
+                                            {{ $application->status }}
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4 space-x-2">
+                                        <button onclick="viewApplication({{ $application->id }})"
+                                            class="text-blue-600 hover:text-blue-900">View</button>
+                                        @if ($application->status === 'PENDING')
+                                            <button
+                                                onclick="updateApplicationStatus({{ $application->id }}, 'APPROVED')"
+                                                class="text-green-600 hover:text-green-900">Approve</button>
+                                            <button
+                                                onclick="updateApplicationStatus({{ $application->id }}, 'REJECTED')"
+                                                class="text-red-600 hover:text-red-900">Reject</button>
+                                        @endif
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
 
-        <!-- Card View -->
-        <div id="applicantCardView" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            @foreach($applications as $application)
-            <div class="bg-white rounded-lg shadow p-6">
-                <div class="flex justify-between items-start mb-4">
-                    <div>
-                        <h3 class="text-xl font-semibold">{{ $application->applicant->name ?? 'N/A' }}</h3>
-                        <p class="text-sm text-gray-500">{{ $application->job->title ?? 'N/A' }}</p>
-                    </div>
-                    <span class="px-2 py-1 rounded text-sm
-                        @if($application->status === 'PENDING') bg-yellow-100 text-yellow-800
+            <!-- Card View -->
+            <div id="applicantCardView" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                @foreach ($applications as $application)
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="text-xl font-semibold">{{ $application->applicant->name ?? 'N/A' }}</h3>
+                                <p class="text-sm text-gray-500">{{ $application->job->title ?? 'N/A' }}</p>
+                            </div>
+                            <span
+                                class="px-2 py-1 rounded text-sm
+                        @if ($application->status === 'PENDING') bg-yellow-100 text-yellow-800
                         @elseif($application->status === 'APPROVED') bg-green-100 text-green-800
-                        @elseif($application->status === 'REJECTED') bg-red-100 text-red-800
-                        @endif">
-                        {{ $application->status }}
-                    </span>
-                </div>
+                        @elseif($application->status === 'REJECTED') bg-red-100 text-red-800 @endif">
+                                {{ $application->status }}
+                            </span>
+                        </div>
 
-                <div class="space-y-2 mb-4">
-                    <p class="text-sm"><span class="font-medium">Applied:</span> {{ $application->created_at->format('M d, Y') }}</p>
-                    <p class="text-sm"><span class="font-medium">Resume:</span>
-                        <a href="{{ Storage::url($application->resume_path) }}" target="_blank"
-                            class="text-blue-600 hover:text-blue-800">View Resume</a>
-                    </p>
-                </div>
+                        <div class="space-y-2 mb-4">
+                            <p class="text-sm"><span class="font-medium">Applied:</span>
+                                {{ $application->created_at->format('M d, Y') }}</p>
+                            <p class="text-sm"><span class="font-medium">Resume:</span>
+                                <a href="{{ Storage::url($application->resume_path) }}" target="_blank"
+                                    class="text-blue-600 hover:text-blue-800">View Resume</a>
+                            </p>
+                        </div>
 
-                <div class="flex justify-end space-x-2">
-                    <button onclick="viewApplication({{ $application->id }})"
-                        class="text-blue-600 hover:text-blue-900">View Details</button>
-                    @if($application->status === 'PENDING')
-                        <button onclick="updateApplicationStatus({{ $application->id }}, 'APPROVED')"
-                            class="text-green-600 hover:text-green-900">Approve</button>
-                        <button onclick="updateApplicationStatus({{ $application->id }}, 'REJECTED')"
-                            class="text-red-600 hover:text-red-900">Reject</button>
-                    @endif
-                </div>
+                        <div class="flex justify-end space-x-2">
+                            <button onclick="viewApplication({{ $application->id }})"
+                                class="text-blue-600 hover:text-blue-900">View Details</button>
+                            @if ($application->status === 'PENDING')
+                                <button onclick="updateApplicationStatus({{ $application->id }}, 'APPROVED')"
+                                    class="text-green-600 hover:text-green-900">Approve</button>
+                                <button onclick="updateApplicationStatus({{ $application->id }}, 'REJECTED')"
+                                    class="text-red-600 hover:text-red-900">Reject</button>
+                            @endif
+                        </div>
+                    </div>
+                @endforeach
             </div>
-
-@endforeach
         </div>
-    </div>
-    @include('owner.job-management.view-applicant')
-    @include('owner.job-management.add-job')
-    @vite(['resources/js/owner.js'])
+        @include('owner.job-management.view-applicant')
+        @include('owner.job-management.add-job')
+        @vite(['resources/js/owner.js'])
 </x-owner-layout>
