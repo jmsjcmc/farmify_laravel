@@ -67,6 +67,7 @@ class OwnerController extends Controller
             ->with('success', 'Job listing created successfully');
     }
 
+    // Job creation status
     public function updateStatus(Request $request, FarmJob $job)
     {
 
@@ -105,5 +106,37 @@ class OwnerController extends Controller
         }
 
         return response()->file($path);
+    }
+    // View Application Details
+    public function getApplicationDetails(FarmJobApplication $application)
+    {
+        if ($application->job->farm_owner_id !== Auth::user()->farmOwner->id) {
+            abort(403);
+        }
+
+        return response()->json([
+            'application' => $application->load(['applicant', 'job']),
+        ]);
+    }
+
+    public function updateInterviewDate(Request $request, FarmJobApplication $application)
+    {
+        if($application->job->farm_owner_id !== Auth::user()->farmOwner->id) {
+            abort(403);
+        }
+
+        $validated = $request->validate([
+            'interview_date' => 'required|date|after:now'
+        ]);
+
+        $application->update([
+            'interview_date' => $validated['interview_date'],
+            'status' => 'Shortlisted'
+        ]);
+
+        return response()->json([
+            'message' => 'Interview scheduled successfully',
+            'application' => $application
+        ]);
     }
 }
