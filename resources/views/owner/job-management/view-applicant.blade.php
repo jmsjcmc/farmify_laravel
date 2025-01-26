@@ -9,7 +9,7 @@
                     </svg>
                 </button>
             </div>
-            <div class="p-6" id="applicationDetails">
+            <div class="p-6 max-h-[calc(100vh-200px)] overflow-y-auto" id="applicationDetails">
                 <!-- Application details will be populated here -->
             </div>
         </div>

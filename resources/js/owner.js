@@ -55,6 +55,19 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     }
 
+    // function switchSection(section) {
+    //     const jobsSection = document.getElementById('jobsSection');
+    //     const applicantsSection = document.getElementById('applicantsSection');
+
+    //     if (section === 'jobs') {
+    //         jobsSection.classList.remove('hidden');
+    //         applicantsSection.classList.add('hidden');
+    //     } else {
+    //         jobsSection.classList.add('hidden');
+    //         applicantsSection.classList.remove('hidden');
+    //     }
+    // }
+
     function switchSection(section) {
         const jobsSection = document.getElementById('jobsSection');
         const applicantsSection = document.getElementById('applicantsSection');
@@ -181,6 +194,33 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    function updateApplicationStatus(applicationId, newStatus) {
+        if (!confirm(`Are you sure you want to ${newStatus.toLowerCase()} this application?`)) {
+            return;
+        }
+
+        fetch(`/owner/applications/${applicationId}/status`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+            },
+            body: JSON.stringify({ status: newStatus })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            window.location.reload();
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Failed to update application status. Please try again.');
+        });
+    }
 
 function scheduleInterview(applicationId) {
     const interviewDate = document.getElementById('interviewDate').value;
@@ -209,8 +249,7 @@ function scheduleInterview(applicationId) {
 }
 
     function closeApplicationModal() {
-        const modal = document.getElementById('applicationModal');
-        modal.classList.add('hidden');
+        document.getElementById('applicationModal').classList.add('hidden');
     }
 
     function viewResume(applicationId) {

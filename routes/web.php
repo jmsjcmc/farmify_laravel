@@ -60,7 +60,7 @@ Route::group(['middleware' => ['role:Farm Owner']], function () {
 
     // All POST routes
     Route::post('/owner/jobs', [OwnerController::class, 'addJobForFManager'])->name('owner.jobs.store');
-
+    Route::post('/owner/applications/{application}/schedule', [OwnerController::class, 'updateInterviewDate'])->name('owner.applications.schedule');
     // All PATCH routes
     Route::patch('/owner/jobs/{job}/status', [OwnerController::class, 'updateStatus'])->name('owner.jobs.update-status');
 });
