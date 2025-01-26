@@ -149,7 +149,7 @@ class OwnerController extends Controller
     }
 
     $validated = $request->validate([
-        'status' => 'required|string|in:PENDING,SHORTLISTED,INTERVIEWED,OFFERED,HIRED,REJECTED'
+        'status' => 'required|string|in:Pending,Shortlisted,Interviewed,Offered,Hired,Rejected'
     ]);
 
     $application->update([
