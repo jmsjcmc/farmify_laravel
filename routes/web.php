@@ -22,7 +22,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-
+// Routes For Consumer
 Route::group(['middleware' => ['role:Consumer']], function () {
     Route::get('/consumer-dashboard', [ConsumerController::class, 'viewDashboard'])->name('consumer.dashboard');
     Route::get('/consumer-setting', [ConsumerController::class, 'viewSetting'])->name('consumer.setting');
@@ -34,7 +34,9 @@ Route::group(['middleware' => ['role:Consumer']], function () {
     Route::post('/consumer-register-farm-owner', [ConsumerController::class, 'registerFarmOwner'])->name('consumer.register-farm-owner.store');
     Route::post('/consumer/jobs/{job}/apply', [ConsumerController::class, 'applyJob'])->name('consumer.jobs.apply');
 });
+// End Of Consumer Routes
 
+// Routes For Admin
 Route::group(['middleware' => ['role:Admin']], function () {
     Route::get('/admin-dashboard', [AdminController::class, 'viewDashboard'])->name('admin.dashboard');
     Route::get('/admin-user-management', [AdminController::class, 'viewUserManagement'])->name('admin.user-management');
@@ -45,22 +47,35 @@ Route::group(['middleware' => ['role:Admin']], function () {
     Route::put('/admin/users/{user}', [AdminController::class, 'updateUser'])->name('admin.update-user');
     Route::delete('/admin/users/{user}', [AdminController::class, 'deleteUser'])->name('admin.delete-user');
 });
+// End Of Admin Routes
 
+// Routes For Farm Owners
 Route::group(['middleware' => ['role:Farm Owner']], function () {
+    // All GET routes
     Route::get('/owner-dashboard', [OwnerController::class, 'viewDashboard'])->name('owner.dashboard');
     Route::get('/owner-farm-management', [OwnerController::class, 'viewFarmManagement'])->name('owner.farm-management');
     Route::get('/owner-job-management', [OwnerController::class, 'viewJobManagement'])->name('owner.job-management');
     Route::get('/owner/applications/resume/{application}', [OwnerController::class, 'viewResume'])->name('owner.applications.resume');
+    Route::get('/owner/applications/{application}', [OwnerController::class, 'getApplicationDetails'])->name('owner.applications.show');
+
+    // All POST routes
     Route::post('/owner/jobs', [OwnerController::class, 'addJobForFManager'])->name('owner.jobs.store');
+
+    // All PATCH routes
     Route::patch('/owner/jobs/{job}/status', [OwnerController::class, 'updateStatus'])->name('owner.jobs.update-status');
 });
+// End Of Farm Owner Routes
 
+// Routes For Laborers
 Route::group(['middleware' => ['role:Laborer']], function () {
     Route::get('/laborer-dashboard', [LaborerController::class, 'viewDashboard'])->name('laborer.dashboard');
 });
+// End Of Laborer Routes
 
+// Routes For Managers
 Route::group(['middleware' => ['role:Manager']], function () {
     Route::get('/manager-dashboard', [ManagerController::class, 'viewDashboard'])->name('manager.dashboard');
 });
+// End Of Manager Routes
 
 require __DIR__ . '/auth.php';
