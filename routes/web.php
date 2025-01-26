@@ -63,6 +63,7 @@ Route::group(['middleware' => ['role:Farm Owner']], function () {
     Route::post('/owner/applications/{application}/schedule', [OwnerController::class, 'updateInterviewDate'])->name('owner.applications.schedule');
     // All PATCH routes
     Route::patch('/owner/jobs/{job}/status', [OwnerController::class, 'updateStatus'])->name('owner.jobs.update-status');
+    Route::patch('/owner/applications/{application}/status', [OwnerController::class, 'updateApplicationStatus'])->name('owner.applications.update-status');
 });
 // End Of Farm Owner Routes
 

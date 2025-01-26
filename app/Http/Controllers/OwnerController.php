@@ -119,6 +119,7 @@ class OwnerController extends Controller
         ]);
     }
 
+    // Updating the Interview Date
     public function updateInterviewDate(Request $request, FarmJobApplication $application)
     {
         if($application->job->farm_owner_id !== Auth::user()->farmOwner->id) {
@@ -138,5 +139,26 @@ class OwnerController extends Controller
             'message' => 'Interview scheduled successfully',
             'application' => $application
         ]);
+    }
+
+    public function updateApplicationStatus(Request $request, FarmJobApplication $application)
+    {
+
+    if ($application->job->farm_owner_id !== Auth::user()->farmOwner->id) {
+        abort(403);
+    }
+
+    $validated = $request->validate([
+        'status' => 'required|string|in:PENDING,SHORTLISTED,INTERVIEWED,OFFERED,HIRED,REJECTED'
+    ]);
+
+    $application->update([
+        'status' => $validated['status']
+    ]);
+
+    return response()->json([
+        'message' => 'Application status updated successfully',
+        'application' => $application
+    ]);
     }
 }
