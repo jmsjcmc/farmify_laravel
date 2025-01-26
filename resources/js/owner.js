@@ -161,12 +161,12 @@ document.addEventListener('DOMContentLoaded', function () {
                         class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
                         View Resume
                     </button>
-                    ${application.status === 'PENDING' ? `
-                        <button onclick="updateApplicationStatus(${application.id}, 'SHORTLISTED')"
+                    ${application.status === 'Pending' ? `
+                        <button onclick="updateApplicationStatus(${application.id}, 'Shortlisted')"
                             class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
                             Shortlist
                         </button>
-                        <button onclick="updateApplicationStatus(${application.id}, 'REJECTED')"
+                        <button onclick="updateApplicationStatus(${application.id}, 'Rejected')"
                             class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
                             Reject
                         </button>
