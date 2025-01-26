@@ -39,20 +39,20 @@ document.addEventListener('DOMContentLoaded', function () {
             },
             body: JSON.stringify({ status: newStatus })
         })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
 
-            window.location.reload();
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Failed to update job status. Please try again.');
-        });
+                window.location.reload();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Failed to update job status. Please try again.');
+            });
     }
 
     function switchSection(section) {
@@ -88,23 +88,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function viewApplication(applicationId) {
-        const modal = document.getElementById('applicationModal');
-        modal.classList.remove('hidden');
-    }
-
-    function closeApplicationModal() {
-        const modal = document.getElementById('applicationModal');
-        modal.classList.add('hidden');
-    }
-
-    function updateApplicationStatus(applicationId, status) {
-
-        if (confirm(`Are you sure you want to ${status.toLowerCase()} this application?`)) {
-
-        }
-    }
-
-    function viewApplication(applicationId) {
         fetch(`/owner/applications/${applicationId}`, {
             method: 'GET',
             headers: {
@@ -112,21 +95,122 @@ document.addEventListener('DOMContentLoaded', function () {
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
             }
         })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                const application = data.application;
+                const detailsHtml = `
+            <div class="space-y-4">
+                <div class="border-b pb-4">
+                    <h4 class="text-lg font-semibold">Applicant Information</h4>
+                    <p><span class="font-medium">Name:</span> ${application.applicant.name}</p>
+                    <p><span class="font-medium">Email:</span> ${application.applicant.email}</p>
+                    <p><span class="font-medium">Applied Date:</span> ${new Date(application.created_at).toLocaleDateString()}</p>
+                </div>
 
-            const modal = document.getElementById('applicationModal');
-            modal.classList.remove('hidden');
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Failed to load application details. Please try again.');
-        });
+                <div class="border-b pb-4">
+                    <h4 class="text-lg font-semibold">Job Details</h4>
+                    <p><span class="font-medium">Position:</span> ${application.job.title}</p>
+                    <p><span class="font-medium">Type:</span> ${application.job.job_type}</p>
+                    <p><span class="font-medium">Status:</span>
+                        <span class="px-2 py-1 rounded text-sm ${getStatusClass(application.status)}">
+                            ${application.status}
+                        </span>
+                    </p>
+                </div>
+
+                <div class="border-b pb-4">
+                    <h4 class="text-lg font-semibold">Application Details</h4>
+                    <p><span class="font-medium">Cover Letter:</span></p>
+                    <p class="mt-2">${application.cover_letter || 'No cover letter provided'}</p>
+                </div>
+
+                <div class="border-b pb-4">
+                    <h4 class="text-lg font-semibold">Interview Schedule</h4>
+                    ${application.interview_date ?
+                        `<p>Scheduled for: ${new Date(application.interview_date).toLocaleString()}</p>` :
+                        `<div class="flex items-center space-x-2">
+                            <input type="datetime-local" id="interviewDate" class="rounded border p-2">
+                            <button onclick="scheduleInterview(${application.id})"
+                                class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                                Schedule Interview
+                            </button>
+                        </div>`
+                    }
+                </div>
+
+                <div class="flex justify-end space-x-2 mt-4">
+                    <button onclick="viewResume('${application.id}')"
+                        class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                        View Resume
+                    </button>
+                    ${application.status === 'PENDING' ? `
+                        <button onclick="updateApplicationStatus(${application.id}, 'SHORTLISTED')"
+                            class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+                            Shortlist
+                        </button>
+                        <button onclick="updateApplicationStatus(${application.id}, 'REJECTED')"
+                            class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+                            Reject
+                        </button>
+                    ` : ''}
+                </div>
+            </div>
+        `;
+        document.getElementById('applicationDetails').innerHTML = detailsHtml;
+        document.getElementById('applicationModal').classList.remove('hidden');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Failed to load application details. Please try again.');
+            });
+    }
+
+    function getStatusClass(status) {
+        switch(status) {
+            case 'PENDING': return 'bg-yellow-500';
+            case 'SHORTLISTED': return 'bg-blue-500';
+            case 'INTERVIEWED': return 'bg-green-500';
+            case 'OFFERED': return 'bg-purple-500';
+            case 'HIRED': return 'bg-green-500';
+            case 'REJECTED': return 'bg-red-500';
+        }
+    }
+
+
+function scheduleInterview(applicationId) {
+    const interviewDate = document.getElementById('interviewDate').value;
+    if (!interviewDate) {
+        alert('Please select an interview date');
+        return;
+    }
+
+    fetch(`/owner/applications/${applicationId}/schedule`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+        },
+        body: JSON.stringify({ interview_date: interviewDate })
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert('Interview scheduled successfully');
+        window.location.reload();
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Failed to schedule interview. Please try again.');
+    });
+}
+
+    function closeApplicationModal() {
+        const modal = document.getElementById('applicationModal');
+        modal.classList.add('hidden');
     }
 
     function viewResume(applicationId) {
@@ -137,6 +221,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     switchApplicantView('card');
 
+    window.scheduleInterview = scheduleInterview;
     window.viewResume = viewResume;
     window.switchApplicantView = switchApplicantView;
     window.updateApplicationStatus = updateApplicationStatus;
