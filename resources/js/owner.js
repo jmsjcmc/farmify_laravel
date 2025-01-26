@@ -183,6 +183,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     }
 
+
     function getStatusClass(status) {
         switch(status) {
             case 'PENDING': return 'bg-yellow-500';
