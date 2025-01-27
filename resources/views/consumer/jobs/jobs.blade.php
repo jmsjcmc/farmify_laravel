@@ -167,6 +167,8 @@
                 </button>
             </div>
         </div>
+        @include('consumer.jobs.view-job', ['job' => $job])
+        @include('consumer.jobs.job-application', ['job' => $job])
     @empty
         <div class="col-span-full text-center">
             <p class="text-gray-500 dark:text-gray-400">No jobs found</p>
@@ -1106,7 +1108,7 @@
             </div>
         </form>
     </section>
-    @include('consumer.jobs.view-job')
-    @include('consumer.jobs.job-application')
+    {{-- @include('consumer.jobs.view-job')
+    @include('consumer.jobs.job-application') --}}
     @vite('resources/js/consumer.js')
 </x-consumer-layout>

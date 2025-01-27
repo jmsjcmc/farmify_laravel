@@ -75,10 +75,36 @@
 
                     <div class="flex items-center lg:space-x-2">
 
-                        <button class="inline-flex gap-1 items-center rounded-lg justify-center p-2 hover:bg-gray-100 text-sm font-medium leading-none text-gray-900">
-                            <svg  xmlns="http://www.w3.org/2000/svg"  width="20"  height="20"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-bell"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 5a2 2 0 1 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6" /><path d="M9 17v1a3 3 0 0 0 6 0v-1" /></svg>
-                            Notifications
-                        </button>
+                        <div class="relative">
+                            <button id="notificationButton" onclick="toggleNotifications()"
+                                class="inline-flex gap-1 items-center rounded-lg justify-center p-2 hover:bg-gray-100 text-sm font-medium leading-none text-gray-900">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-bell">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                    <path d="M10 5a2 2 0 1 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6" />
+                                    <path d="M9 17v1a3 3 0 0 0 6 0v-1" />
+                                </svg>
+                                Notifications
+                                @if(auth()->user()->unreadNotifications->count() > 0)
+                                    <span class="absolute -top-1 -right-1 bg-red-500 text-white rounded-full w-5 h-5 text-xs flex items-center justify-center">
+                                        {{ auth()->user()->unreadNotifications->count() }}
+                                    </span>
+                                @endif
+                            </button>
+
+                            <div id="notificationDropdown" class="hidden absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-lg z-50">
+                                <div class="p-4 max-h-96 overflow-y-auto">
+                                    @forelse(auth()->user()->notifications as $notification)
+                                        <div class="p-3 {{ $notification->read_at ? 'bg-white' : 'bg-blue-50' }} border-b">
+                                            <p class="text-sm">{{ $notification->data['message'] }}</p>
+                                            <small class="text-gray-500">{{ $notification->created_at->diffForHumans() }}</small>
+                                        </div>
+                                    @empty
+                                        <p class="text-gray-500 text-center">No notifications</p>
+                                    @endforelse
+                                </div>
+                            </div>
+                        </div>
 
                         <button id="myCartDropdownButton1" data-dropdown-toggle="myCartDropdown1" type="button"
                             class="inline-flex items-center rounded-lg justify-center p-2 hover:bg-gray-100 dark:hover:bg-gray-700 text-sm font-medium leading-none text-gray-900 dark:text-white">

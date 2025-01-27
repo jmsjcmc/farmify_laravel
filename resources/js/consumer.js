@@ -4,6 +4,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const closeButtons = document.querySelectorAll('[data-modal-hide]');
     const backdrop = document.getElementById('modal-backdrop');
     const applicationForms = document.querySelectorAll('form[action*="/consumer/jobs/"][action$="/apply"]');
+    const dropdown = document.getElementById('notificationDropdown');
+    const button = document.getElementById('notificationButton');
+
     function showModal(modal) {
         backdrop.classList.remove('hidden');
         modal.classList.remove('hidden');
@@ -15,6 +18,25 @@ document.addEventListener('DOMContentLoaded', function () {
         modal.classList.add('hidden');
         document.body.classList.remove('overflow-hidden');
     }
+
+    function toggleNotifications() {
+        dropdown.classList.toogle('hidden');
+        if (!dropdown.classList.contains('hidden')) {
+            fetch('/notifications/mark-as-read', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                }
+            });
+        }
+    }
+
+    document.addEventListener('click', function() {
+        if (!dropdown.contains(event.target) && !button.contains(event.target)) {
+            dropdown.classList.add('hidden');
+        }
+    });
 
     viewButtons.forEach(button => {
         button.addEventListener('click', () => {

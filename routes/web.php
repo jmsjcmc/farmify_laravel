@@ -7,6 +7,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\LaborerController;
 use App\Http\Controllers\ManagerController;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -24,6 +25,7 @@ Route::middleware('auth')->group(function () {
 
 // Routes For Consumer
 Route::group(['middleware' => ['role:Consumer']], function () {
+    // GET Routes
     Route::get('/consumer-dashboard', [ConsumerController::class, 'viewDashboard'])->name('consumer.dashboard');
     Route::get('/consumer-setting', [ConsumerController::class, 'viewSetting'])->name('consumer.setting');
     Route::get('/consumer-account', [ConsumerController::class, 'viewAccount'])->name('consumer.account');
@@ -31,8 +33,14 @@ Route::group(['middleware' => ['role:Consumer']], function () {
     Route::get('/consumer-jobs', [ConsumerController::class, 'viewJobs'])->name('consumer.jobs');
     Route::get('/jobs/{job}', [ConsumerController::class, 'showJob'])->name('consumer.jobs.show');
     Route::get('/consumer-farms', [ConsumerController::class, 'viewFarms'])->name('consumer.farms');
+
+    // POST Routes
     Route::post('/consumer-register-farm-owner', [ConsumerController::class, 'registerFarmOwner'])->name('consumer.register-farm-owner.store');
     Route::post('/consumer/jobs/{job}/apply', [ConsumerController::class, 'applyJob'])->name('consumer.jobs.apply');
+    Route::post('notifications/mark-as-read', function() {
+        Auth::user()->unreadNotifications->markAsRead();
+        return response()->json(['success' => true]);
+    });
 });
 // End Of Consumer Routes
 

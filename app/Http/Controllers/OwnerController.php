@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\FarmJob;
 use Illuminate\Support\Facades\Auth;
 use App\Models\FarmJobApplication;
-
+use App\Notifications\JobApplicationStatusUpdated;
 
 class OwnerController extends Controller
 {
@@ -148,6 +148,7 @@ class OwnerController extends Controller
         abort(403);
     }
 
+
     $validated = $request->validate([
         'status' => 'required|string|in:Pending,Shortlisted,Interviewed,Offered,Hired,Rejected'
     ]);
@@ -155,6 +156,8 @@ class OwnerController extends Controller
     $application->update([
         'status' => $validated['status']
     ]);
+
+    $application->applicant->notify(new JobApplicationStatusUpdated($application));
 
     return response()->json([
         'message' => 'Application status updated successfully',
