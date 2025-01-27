@@ -37,10 +37,8 @@ Route::group(['middleware' => ['role:Consumer']], function () {
     // POST Routes
     Route::post('/consumer-register-farm-owner', [ConsumerController::class, 'registerFarmOwner'])->name('consumer.register-farm-owner.store');
     Route::post('/consumer/jobs/{job}/apply', [ConsumerController::class, 'applyJob'])->name('consumer.jobs.apply');
-    Route::post('notifications/mark-as-read', function() {
-        Auth::user()->unreadNotifications->markAsRead();
-        return response()->json(['success' => true]);
-    });
+    Route::post('notifications/mark-as-read', [ConsumerController::class, 'markNotificationsAsRead'])
+    ->name('notifications.markAsRead');
 });
 // End Of Consumer Routes
 

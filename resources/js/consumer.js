@@ -6,6 +6,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const applicationForms = document.querySelectorAll('form[action*="/consumer/jobs/"][action$="/apply"]');
     const dropdown = document.getElementById('notificationDropdown');
     const button = document.getElementById('notificationButton');
+    const badge = button.querySelector('.bg-red-500');
+
+    let isNotificationOpen = false;
 
     function showModal(modal) {
         backdrop.classList.remove('hidden');
@@ -20,22 +23,48 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function toggleNotifications() {
-        dropdown.classList.toogle('hidden');
-        if (!dropdown.classList.contains('hidden')) {
-            fetch('/notifications/mark-as-read', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+       if (!dropdown || !button) return;
+
+       isNotificationOpen = !isNotificationOpen;
+
+       if (isNotificationOpen) {
+        dropdown.classList.remove('hidden');
+        fetch('/notifications/mark-as-read', {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                if (badge) {
+                    badge.remove();
                 }
-            });
-        }
+            }
+        }).catch(error => console.error('Error', error));
+       } else {
+        dropdown.classList.add('hidden');
+       }
     }
 
-    document.addEventListener('click', function() {
+    if (button) {
+        button.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            toggleNotifications();
+        } );
+    }
+
+    document.addEventListener('click', function(event) {
+      if (dropdown && button && isNotificationOpen) {
         if (!dropdown.contains(event.target) && !button.contains(event.target)) {
+            isNotificationOpen = false;
             dropdown.classList.add('hidden');
         }
+      }
     });
 
     viewButtons.forEach(button => {
@@ -111,4 +140,6 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     });
+
+    window.toggleNotifications = toggleNotifications;
 });

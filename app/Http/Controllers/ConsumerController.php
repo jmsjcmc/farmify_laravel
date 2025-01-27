@@ -18,10 +18,10 @@ class ConsumerController extends Controller
     public function viewJobs()
     {
         $jobs = FarmJob::with(['farmOwner', 'skills'])
-        ->where('status', 'ACTIVE')
-        ->orderBy('created_at', 'desc')
-        ->paginate(12);
-        return view('consumer.jobs.jobs', compact ('jobs'));
+            ->where('status', 'ACTIVE')
+            ->orderBy('created_at', 'desc')
+            ->paginate(12);
+        return view('consumer.jobs.jobs', compact('jobs'));
     }
 
     public function viewFarms()
@@ -45,10 +45,10 @@ class ConsumerController extends Controller
     }
 
     public function showJob(FarmJob $job)
-{
-    $job->load(['farmOwner', 'skills']);
-    return view('consumer.jobs.show', compact('job'));
-}
+    {
+        $job->load(['farmOwner', 'skills']);
+        return view('consumer.jobs.show', compact('job'));
+    }
 
     public function registerFarmOwner(Request $request)
     {
@@ -68,17 +68,19 @@ class ConsumerController extends Controller
 
 
         $businessPermitPath = $request->file('business_permit_image')
-        ->storeAs('farm_documents/permits',
-            time() . '_' . $request->file('business_permit_image')->getClientOriginalName(),
-            'public'
-        );
+            ->storeAs(
+                'farm_documents/permits',
+                time() . '_' . $request->file('business_permit_image')->getClientOriginalName(),
+                'public'
+            );
 
 
         $validIdPath = $request->file('valid_id_image')
-        ->storeAs('farm_documents/ids',
-            time() . '_' . $request->file('valid_id_image')->getClientOriginalName(),
-            'public'
-        );
+            ->storeAs(
+                'farm_documents/ids',
+                time() . '_' . $request->file('valid_id_image')->getClientOriginalName(),
+                'public'
+            );
 
 
         $farmOwner = FarmOwner::create([
@@ -103,32 +105,57 @@ class ConsumerController extends Controller
     }
 
     public function applyJob(Request $request, FarmJob $job)
-{
-    try {
-        $request->validate([
-            'cover_letter' => 'required|string|max:1000',
-            'resume' => 'required|file|mimes:pdf,doc,docx|max:2048',
-        ]);
+    {
+        try {
+            $request->validate([
+                'cover_letter' => 'required|string|max:1000',
+                'resume' => 'required|file|mimes:pdf,doc,docx|max:2048',
+            ]);
 
-        $resumePath = $request->file('resume')->store('resumes', 'public');
+            $resumePath = $request->file('resume')->store('resumes', 'public');
 
-        $application = FarmJobApplication::create([
-            'farm_job_id' => $job->id,
-            'user_id' => Auth::id(),
-            'cover_letter' => $request->cover_letter,
-            'resume_path' => $resumePath,
-            'status' => 'PENDING',
-        ]);
+            $application = FarmJobApplication::create([
+                'farm_job_id' => $job->id,
+                'user_id' => Auth::id(),
+                'cover_letter' => $request->cover_letter,
+                'resume_path' => $resumePath,
+                'status' => 'PENDING',
+            ]);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Your application has been submitted successfully!'
-        ]);
-    } catch (\Exception $e) {
-        return response()->json([
-            'success' => false,
-            'message' => 'Failed to submit application: ' . $e->getMessage()
-        ], 422);
+            return response()->json([
+                'success' => true,
+                'message' => 'Your application has been submitted successfully!'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to submit application: ' . $e->getMessage()
+            ], 422);
+        }
     }
+
+    public function markNotificationsAsRead()
+    {
+        try {
+            Auth::user()->unreadNotifications->markAsRead();
+            return response()->json([
+                'success' => true,
+                'message' => 'Notifications marked as read'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to mark notifications as read'
+            ], 500);
+        }
+    }
+
+    private function sendNotification($user, $type, $content)
+{
+    $user->notify(new \App\Notifications\JobApplicationStatusUpdated([
+        'type' => $type,
+        'content' => $content,
+        'message' => "$type: $content" // Optional combined message
+    ]));
 }
 }
