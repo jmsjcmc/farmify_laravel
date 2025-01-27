@@ -270,14 +270,51 @@
                         </div>
 
                         <div class="flex justify-end space-x-2">
-                            <button onclick="viewApplication({{ $application->id }})"
-                                class="text-blue-600 hover:text-blue-900">View Details</button>
-                            @if ($application->status === 'PENDING')
-                                <button onclick="updateApplicationStatus({{ $application->id }}, 'APPROVED')"
-                                    class="text-green-600 hover:text-green-900">Approve</button>
-                                <button onclick="updateApplicationStatus({{ $application->id }}, 'REJECTED')"
-                                    class="text-red-600 hover:text-red-900">Reject</button>
-                            @endif
+                            @switch($application->status)
+                                @case('Pending')
+                                    <button onclick="viewApplication({{ $application->id }})"
+                                        class="px-3 py-2 rounded-lg border text-blue-500 hover:text-neutral-50 hover:bg-blue-500">
+                                        View Details
+                                    </button>
+                                    <button onclick="updateApplicationStatus({{ $application->id }}, 'Shortlisted')"
+                                        class="px-3 py-2 rounded-lg border text-green-500 hover:text-neutral-50 hover:bg-green-500">
+                                        Shortlist
+                                    </button>
+                                    <button onclick="updateApplicationStatus({{ $application->id }}, 'Rejected')"
+                                        class="px-3 py-2 rounded-lg border text-red-500 hover:text-neutral-50 hover:bg-red-500">
+                                        Reject
+                                    </button>
+                                    @break
+
+                                @case('Shortlisted')
+                                    <button onclick="updateApplicationStatus({{ $application->id }}, 'Interviewed')"
+                                        class="px-3 py-2 rounded-lg border text-blue-500 hover:text-neutral-50 hover:bg-blue-500">
+                                        Interviewed
+                                    </button>
+                                    <button onclick="updateApplicationStatus({{ $application->id }}, 'Rejected')"
+                                        class="px-3 py-2 rounded-lg border text-red-500 hover:text-neutral-50 hover:bg-red-500">
+                                        Reject
+                                    </button>
+                                    @break
+
+                                @case('Interviewed')
+                                    <button onclick="updateApplicationStatus({{ $application->id }}, 'Offered')"
+                                        class="px-3 py-2 rounded-lg border text-green-500 hover:text-neutral-50 hover:bg-green-500">
+                                        Offered
+                                    </button>
+                                    <button onclick="updateApplicationStatus({{ $application->id }}, 'Rejected')"
+                                        class="px-3 py-2 rounded-lg border text-red-500 hover:text-neutral-50 hover:bg-red-500">
+                                        Reject
+                                    </button>
+                                    @break
+
+                                @case('Offered')
+                                    <button onclick="updateApplicationStatus({{ $application->id }}, 'Hired')"
+                                        class="px-3 py-2 rounded-lg border text-green-500 hover:text-neutral-50 hover:bg-green-500">
+                                        Hire
+                                    </button>
+                                    @break
+                            @endswitch
                         </div>
                     </div>
                 @endforeach
