@@ -74,7 +74,7 @@ Route::group(['middleware' => ['role:Farm Owner']], function () {
 // End Of Farm Owner Routes
 
 // Routes For Laborers
-Route::group(['middleware' => ['role:Laborer']], function () {
+Route::group(['middleware' => ['role:Farm Laborer']], function () {
     Route::get('/laborer-dashboard', [LaborerController::class, 'viewDashboard'])->name('laborer.dashboard');
 });
 // End Of Laborer Routes

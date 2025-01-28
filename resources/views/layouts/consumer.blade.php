@@ -328,6 +328,12 @@
                                             class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600">
                                             Farm Manager Dashboard </a></li>
                                 @endrole
+
+                                @role('Farm Laborer')
+                                    <li><a href="{{ route('laborer.dashboard') }}" title=""
+                                            class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600">
+                                            Farm Laborer Dashboard </a></li>
+                            @endrole
                                 <li><a href="#" title=""
                                         class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600">
                                         My Orders </a></li>
