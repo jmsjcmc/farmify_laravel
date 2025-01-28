@@ -80,7 +80,7 @@ Route::group(['middleware' => ['role:Laborer']], function () {
 // End Of Laborer Routes
 
 // Routes For Managers
-Route::group(['middleware' => ['role:Manager']], function () {
+Route::group(['middleware' => ['role:Farm Manager']], function () {
     Route::get('/manager-dashboard', [ManagerController::class, 'viewDashboard'])->name('manager.dashboard');
 });
 // End Of Manager Routes

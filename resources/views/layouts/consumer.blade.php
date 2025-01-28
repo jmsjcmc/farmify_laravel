@@ -34,7 +34,7 @@
                                 <img class="hidden w-auto h-8 dark:block"
                                     src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/logo-full-dark.svg"
                                     alt=""> --}}
-                                    <span
+                                <span
                                     class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Farmify</span>
                             </a>
                         </div>
@@ -76,32 +76,37 @@
                     <div class="flex items-center lg:space-x-2">
 
                         <button id="notificationButton" data-dropdown-toggle="notificationDropdown" type="button"
-                        class="inline-flex items-center rounded-lg justify-center p-2 hover:bg-gray-100 dark:hover:bg-gray-700 text-sm font-medium leading-none text-gray-900 dark:text-white">
-                        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5.4V3m0 2.4a5.3 5.3 0 0 1 5.1 5.3v1.8c0 2.4 1.9 3 1.9 3h-14s1.9-.6 1.9-3v-1.8A5.3 5.3 0 0 1 12 5.4ZM8.7 18c0 1.8 1.3 3 3.3 3s3.3-1.2 3.3-3"/>
-                        </svg>
-                        @if(auth()->user()->unreadNotifications->count() > 0)
-                            <span class="bg-red-500 text-white text-xs font-medium px-1.5 py-0.5 rounded-full ml-1">
-                                {{ auth()->user()->unreadNotifications->count() }}
-                            </span>
-                        @endif
-                    </button>
+                            class="inline-flex items-center rounded-lg justify-center p-2 hover:bg-gray-100 dark:hover:bg-gray-700 text-sm font-medium leading-none text-gray-900 dark:text-white">
+                            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M12 5.4V3m0 2.4a5.3 5.3 0 0 1 5.1 5.3v1.8c0 2.4 1.9 3 1.9 3h-14s1.9-.6 1.9-3v-1.8A5.3 5.3 0 0 1 12 5.4ZM8.7 18c0 1.8 1.3 3 3.3 3s3.3-1.2 3.3-3" />
+                            </svg>
+                            @if (auth()->user()->unreadNotifications->count() > 0)
+                                <span class="bg-red-500 text-white text-xs font-medium px-1.5 py-0.5 rounded-full ml-1">
+                                    {{ auth()->user()->unreadNotifications->count() }}
+                                </span>
+                            @endif
+                        </button>
 
 
-                        <div id="notificationDropdown" class="hidden absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-lg z-50">
+                        <div id="notificationDropdown"
+                            class="hidden absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-lg z-50">
                             <div class="p-4 max-h-96 overflow-y-auto">
                                 @forelse(auth()->user()->notifications as $notification)
                                     <div class="p-3 {{ $notification->read_at ? 'bg-white' : 'bg-blue-50' }} border-b">
                                         {{-- Update to safely access notification data --}}
                                         <p class="text-sm">
-                                            @if(isset($notification->data['message']))
+                                            @if (isset($notification->data['message']))
                                                 {{ $notification->data['message'] }}
                                             @else
                                                 {{ $notification->data['type'] ?? 'Notification' }}:
                                                 {{ $notification->data['content'] ?? 'New notification received' }}
                                             @endif
                                         </p>
-                                        <small class="text-gray-500">{{ $notification->created_at->diffForHumans() }}</small>
+                                        <small
+                                            class="text-gray-500">{{ $notification->created_at->diffForHumans() }}</small>
                                     </div>
                                 @empty
                                     <p class="text-gray-500 text-center">No notifications</p>
@@ -312,11 +317,17 @@
                                 <li><a href="{{ route('consumer.account') }}" title=""
                                         class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600">
                                         My Account </a></li>
-                                    @role('Farm Owner')
-                                        <li><a href="{{ route('owner.dashboard') }}" title=""
+                                @role('Farm Owner')
+                                    <li><a href="{{ route('owner.dashboard') }}" title=""
                                             class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600">
                                             Farm Owner Dashboard </a></li>
-                                    @endrole
+                                @endrole
+
+                                @role('Farm Manager')
+                                    <li><a href="{{ route('manager.dashboard') }}" title=""
+                                            class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600">
+                                            Farm Manager Dashboard </a></li>
+                                @endrole
                                 <li><a href="#" title=""
                                         class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600">
                                         My Orders </a></li>
@@ -337,7 +348,9 @@
                             <div class="p-2 text-sm font-medium text-gray-900 dark:text-white">
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
-                                    <button type="submit" class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600">Sign Out</button>
+                                    <button type="submit"
+                                        class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600">Sign
+                                        Out</button>
                                 </form>
                             </div>
                         </div>

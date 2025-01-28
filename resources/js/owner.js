@@ -1,4 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
+    const jobsSection = document.getElementById('jobsSection');
+    const applicantsSection = document.getElementById('applicantsSection');
+
     function closeModal() {
         document.getElementById('createJobModal').classList.add('hidden');
     }
@@ -55,23 +58,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     }
 
-    // function switchSection(section) {
-    //     const jobsSection = document.getElementById('jobsSection');
-    //     const applicantsSection = document.getElementById('applicantsSection');
-
-    //     if (section === 'jobs') {
-    //         jobsSection.classList.remove('hidden');
-    //         applicantsSection.classList.add('hidden');
-    //     } else {
-    //         jobsSection.classList.add('hidden');
-    //         applicantsSection.classList.remove('hidden');
-    //     }
-    // }
-
     function switchSection(section) {
-        const jobsSection = document.getElementById('jobsSection');
-        const applicantsSection = document.getElementById('applicantsSection');
-
         if (section === 'jobs') {
             jobsSection.classList.remove('hidden');
             applicantsSection.classList.add('hidden');
@@ -198,6 +185,12 @@ document.addEventListener('DOMContentLoaded', function () {
     function updateApplicationStatus(applicationId, newStatus) {
         if (!confirm(`Are you sure you want to ${newStatus.toLowerCase()} this application?`)) {
             return;
+        }
+
+        if (newStatus === 'Hired') {
+            if (!confirm('This will change the applicant\'s role in the system. Are you sure you want to proceed?')) {
+                return;
+            }
         }
 
         fetch(`/owner/applications/${applicationId}/status`, {
