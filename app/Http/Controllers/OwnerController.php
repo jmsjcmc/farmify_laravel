@@ -157,6 +157,12 @@ class OwnerController extends Controller
         'status' => $validated['status']
     ]);
 
+    if ($validated['status'] === 'Hired') {
+        $jobType = $application->job->job_type;
+        $role = $jobType === 'Farm Manager' ? 'Farm Manager' : 'Farm Laborer';
+        $application->applicant->assignRole($role);
+    }
+
     $application->applicant->notify(new JobApplicationStatusUpdated($application));
 
     return response()->json([
